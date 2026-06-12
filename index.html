@@ -185,7 +185,8 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
 <div id="calib-panel">
   <h4>⊕ 传送门坐标校准</h4>
   <div id="calib-rows"></div>
-  <p id="calib-hint">转动视角对准门口，点击「设为当前视角」将传送门移到这里。<br>完成后复制坐标，更新 index.html 第 PORTALS 行。</p>
+  <p id="calib-hint">转动视角对准门口，点「设为当前视角」移动传送门。坐标自动暂存在本机，刷新不丢失。</p>
+  <button id="calib-copy-all" style="margin-top:10px;width:100%;padding:7px;border-radius:8px;background:rgba(255,180,0,0.15);border:1px solid rgba(255,180,0,0.4);color:#FFB400;font-size:11px;cursor:pointer;font-family:inherit;">复制全部坐标 → 发给 Claude 永久保存</button>
 </div>
 
 <div id="modal-bg"><div id="modal">
@@ -205,9 +206,12 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   };
   // 传送门配置 — 校准后更新 lon/lat 值
   var PORTALS = [
-    { id:'p1', from:'corridor', to:'room',     lon:10,  lat:2, label:'进入卧室' },
-    { id:'p2', from:'room',     to:'corridor', lon:180, lat:2, label:'返回走廊' }
+    { id:'p1', from:'corridor', to:'room',     lon:10,   lat:2,    label:'进入卧室' },
+    { id:'p2', from:'room',     to:'corridor', lon:23.1, lat:20.2, label:'返回走廊' }
   ];
+
+  // 从 localStorage 读取上次校准结果
+  (function(){ try{ var s=localStorage.getItem('ysuites-portals'); if(s){ var sp=JSON.parse(s); PORTALS.forEach(function(p){ var f=sp.find(function(x){return x.id===p.id;}); if(f){p.lon=f.lon;p.lat=f.lat;} }); } }catch(e){} })();
 
   var renderer = new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -358,6 +362,8 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
         var btn=document.getElementById('cset-'+p.id);
         btn.textContent='✓ 已设置'; btn.style.background='#FFB400'; btn.style.color='#000';
         setTimeout(function(){btn.textContent='设为当前视角';btn.style.background='';btn.style.color='';},1200);
+        // 持久化到 localStorage
+        try{ localStorage.setItem('ysuites-portals', JSON.stringify(PORTALS.map(function(q){return{id:q.id,lon:q.lon,lat:q.lat};}))); }catch(e){}
       });
 
       document.getElementById('ccopy-'+p.id).addEventListener('click',function(){
@@ -380,6 +386,21 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     if(calibMode){
       autoSpin=false;
       buildCalibRows();
+      // 绑定"复制全部坐标"按钮
+      var copyAll=document.getElementById('calib-copy-all');
+      if(copyAll) copyAll.onclick=function(){
+        var lines=PORTALS.map(function(p){
+          return '  { id:''+p.id+'', from:''+p.from+'', to:''+p.to+'', lon:'+p.lon+', lat:'+p.lat+', label:''+p.label+'' }';
+        });
+        var txt='PORTALS:
+'+lines.join('
+');
+        navigator.clipboard.writeText(txt).then(function(){
+          copyAll.textContent='✓ 已复制，粘贴给 Claude 即可';
+          copyAll.style.background='#FFB400'; copyAll.style.color='#000';
+          setTimeout(function(){copyAll.textContent='复制全部坐标 → 发给 Claude 永久保存';copyAll.style.background='';copyAll.style.color='';},2000);
+        });
+      };
     }
   });
 
