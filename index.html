@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Y Suites · 全景漫游</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC',sans-serif; }
+#c { display:block; cursor:grab; }
+#c.dragging { cursor:grabbing; }
+#c.add-mode { cursor:crosshair; }
+#loading {
+  position:fixed; inset:0; background:#111; z-index:999;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;
+  transition:opacity 0.5s;
+}
+#loading .logo { color:#00BAB3; font-size:22px; font-weight:700; letter-spacing:2px; }
+#progress-wrap { width:200px; height:3px; background:rgba(255,255,255,0.1); border-radius:2px; }
+#progress-bar { height:100%; width:0%; background:#00BAB3; border-radius:2px; transition:width 0.3s; }
+#load-msg { color:rgba(255,255,255,0.4); font-size:12px; }
+#transition { position:fixed; inset:0; background:#000; z-index:900; opacity:0; pointer-events:none; transition:opacity 0.35s; }
+#topbar {
+  position:fixed; top:0; left:0; right:0; height:50px;
+  background:rgba(0,0,0,0.6); backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 16px; z-index:100; gap:10px;
+}
+.logo-sm { color:#00BAB3; font-weight:700; font-size:14px; letter-spacing:1px; flex-shrink:0; }
+#scene-badge {
+  color:rgba(255,255,255,0.5); font-size:11px;
+  background:rgba(255,255,255,0.07); padding:3px 11px;
+  border-radius:10px; flex-shrink:0;
+}
+#scene-badge span { color:#fff; }
+.mode-btn {
+  display:flex; align-items:center; gap:6px;
+  background:rgba(0,186,179,0.12); border:1px solid rgba(0,186,179,0.5);
+  color:#00BAB3; padding:5px 13px; border-radius:18px;
+  font-size:11px; cursor:pointer; transition:all 0.2s; flex-shrink:0;
+}
+.mode-btn:hover,.mode-btn.active { background:#00BAB3; color:#fff; border-color:#00BAB3; }
+#ui {
+  position:fixed; bottom:18px; left:50%; transform:translateX(-50%);
+  display:flex; gap:8px; align-items:center;
+  background:rgba(0,0,0,0.55); backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.1); border-radius:36px;
+  padding:6px 14px; z-index:100;
+}
+.btn {
+  background:rgba(255,255,255,0.1); border:none; color:#fff;
+  border-radius:50%; width:30px; height:30px; font-size:14px;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.btn:hover { background:rgba(255,255,255,0.22); }
+#fovlbl { color:rgba(255,255,255,0.5); font-size:11px; min-width:32px; text-align:center; }
+.sep { width:1px; height:16px; background:rgba(255,255,255,0.1); }
+#tip {
+  position:fixed; top:62px; left:50%; transform:translateX(-50%);
+  color:rgba(255,255,255,0.75); font-size:12px;
+  background:rgba(0,0,0,0.5); padding:5px 14px; border-radius:18px;
+  pointer-events:none; transition:opacity 1s; z-index:99; white-space:nowrap;
+}
+.hotspot { position:fixed; z-index:200; transform:translate(-50%,-50%); pointer-events:auto; }
+.hs-ring {
+  width:32px; height:32px; border-radius:50%;
+  background:rgba(0,186,179,0.2); border:2px solid #00BAB3;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:#00BAB3; font-size:12px; font-weight:bold;
+  animation:pulse 2.5s infinite;
+}
+.hs-ring:hover { background:rgba(0,186,179,0.4); }
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(0,186,179,0.4);}50%{box-shadow:0 0 0 8px rgba(0,186,179,0);} }
+.hs-card {
+  position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
+  background:rgba(8,8,8,0.93); backdrop-filter:blur(14px);
+  border:1px solid rgba(0,186,179,0.3); border-radius:11px;
+  padding:10px 14px; min-width:160px; max-width:240px; display:none; color:#fff;
+}
+.hs-card.show { display:block; }
+.hs-card::after { content:''; position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); border:6px solid transparent; border-bottom:none; border-top-color:rgba(0,186,179,0.3); }
+.hs-card h4 { color:#00BAB3; font-size:12px; margin-bottom:3px; }
+.hs-card p { font-size:11px; color:rgba(255,255,255,0.7); line-height:1.5; }
+.hs-card .ca { display:flex; gap:6px; margin-top:8px; padding-top:7px; border-top:1px solid rgba(255,255,255,0.07); }
+.cb { flex:1; padding:3px 0; border-radius:5px; font-size:11px; cursor:pointer; border:none; text-align:center; font-family:inherit; }
+.cb.edit { background:rgba(0,186,179,0.15); color:#00BAB3; border:1px solid rgba(0,186,179,0.3); }
+.cb.del { background:rgba(240,128,128,0.1); color:#F08080; border:1px solid rgba(240,128,128,0.25); }
+.portal { position:fixed; z-index:200; transform:translate(-50%,-50%); pointer-events:auto; cursor:pointer; }
+.portal-ring {
+  width:54px; height:54px; border-radius:50%;
+  background:rgba(255,180,0,0.12); border:2px solid #FFB400;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+  transition:all 0.2s; animation:portalPulse 2s infinite;
+}
+.portal-ring:hover { background:rgba(255,180,0,0.3); transform:scale(1.1); }
+.portal-ring .arr { font-size:20px; line-height:1; }
+.portal-ring .plbl { font-size:9px; color:#FFB400; font-weight:600; }
+@keyframes portalPulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,180,0,0.4);}50%{box-shadow:0 0 0 10px rgba(255,180,0,0);} }
+#modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; z-index:500; }
+#modal-bg.show { display:flex; }
+#modal { background:#181818; border:1px solid rgba(0,186,179,0.2); border-radius:14px; padding:20px; width:300px; }
+#modal h3 { color:#00BAB3; margin-bottom:13px; font-size:14px; }
+#modal label { color:rgba(255,255,255,0.45); font-size:11px; display:block; margin-bottom:4px; }
+#modal input,#modal textarea { width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:7px; color:#fff; padding:8px 10px; font-size:12px; margin-bottom:11px; outline:none; font-family:inherit; }
+#modal input:focus,#modal textarea:focus { border-color:#00BAB3; }
+#modal textarea { resize:none; height:60px; }
+.mbtns { display:flex; gap:8px; }
+.mbtns button { flex:1; padding:9px; border-radius:7px; font-size:12px; cursor:pointer; border:none; font-family:inherit; }
+#msave { background:#00BAB3; color:#fff; }
+#mcancel { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); }
+</style>
+</head>
+<body>
+<div id="loading">
+  <div class="logo-sm" style="font-size:20px;letter-spacing:3px">Y SUITES</div>
+  <div id="progress-wrap"><div id="progress-bar"></div></div>
+  <p id="load-msg">正在加载...</p>
+</div>
+<div id="transition"></div>
+<canvas id="c"></canvas>
+<div id="topbar">
+  <div class="logo-sm">Y SUITES</div>
+  <div id="scene-badge">📍 <span id="sname">走廊</span></div>
+  <button id="add-btn" class="mode-btn"><span style="width:6px;height:6px;border-radius:50%;background:currentColor"></span><span id="add-label">添加标记</span></button>
+</div>
+<div id="tip">拖拽旋转 · 滚轮缩放 · 点击 ✨ 切换场景</div>
+<div id="ui">
+  <button class="btn" id="bL">&#8249;</button><button class="btn" id="bR">&#8250;</button>
+  <button class="btn" id="bU">&#8593;</button><button class="btn" id="bD">&#8595;</button>
+  <div class="sep"></div>
+  <button class="btn" id="bZI">+</button><span id="fovlbl">75°</span><button class="btn" id="bZO">&#8722;</button>
+  <div class="sep"></div>
+  <button class="btn" id="bFS">&#x26F6;</button>
+</div>
+<div id="modal-bg"><div id="modal">
+  <h3 id="mtitle">添加标记</h3>
+  <label>标题</label><input id="m-title" type="text" placeholder="如：衣柜" maxlength="20">
+  <label>描述</label><textarea id="m-desc" placeholder="如：内置衣架 + 收纳格"></textarea>
+  <div class="mbtns"><button id="mcancel">取消</button><button id="msave">保存</button></div>
+</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  var SCENES = {
+    corridor:{ file:'corridor.webp', name:'走廊' },
+    room:    { file:'room.webp',     name:'卧室' }
+  };
+  var PORTALS = [
+    { id:'p1', from:'corridor', to:'room',     lon:10,  lat:2, label:'进入卧室' },
+    { id:'p2', from:'room',     to:'corridor', lon:180, lat:2, label:'返回走廊' }
+  ];
+
+  var renderer = new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  var scene3 = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+  var geo = new THREE.SphereGeometry(500,60,40); geo.scale(-1,1,1);
+  var mat = new THREE.MeshBasicMaterial();
+  var mesh = new THREE.Mesh(geo,mat); scene3.add(mesh);
+
+  var lon=0,lat=0,fov=75,isDrag=false,lastX=0,lastY=0,autoSpin=true,addMode=false;
+  var currentScene='corridor', texCache={};
+  var sceneHS={corridor:[],room:[]};
+  var hsCounter=0,activeCard=null,pendingHS=null,editingId=null;
+  var portalEls={};
+
+  // ── Lazy load: load current scene first, then background ──
+  function loadTex(name, onProgress, onDone) {
+    if(texCache[name]){ onDone(texCache[name]); return; }
+    var img = new Image();
+    img.onload = function(){
+      var tex = new THREE.Texture(img);
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.needsUpdate = true;
+      texCache[name] = tex;
+      onDone(tex);
+    };
+    img.onerror = function(){ document.getElementById('load-msg').textContent='加载失败，请刷新重试'; };
+    img.src = SCENES[name].file;
+  }
+
+  // Load first scene, show it, then load second in background
+  loadTex('corridor', null, function(tex){
+    mat.map = tex; mat.needsUpdate = true;
+    document.getElementById('progress-bar').style.width = '60%';
+    document.getElementById('load-msg').textContent = '加载完成';
+    setTimeout(function(){
+      document.getElementById('loading').style.opacity='0';
+      setTimeout(function(){ document.getElementById('loading').style.display='none'; },500);
+    },200);
+    renderPortals(); renderHotspots();
+    // Background load room
+    loadTex('room', null, function(){ document.getElementById('progress-bar').style.width='100%'; });
+  });
+  document.getElementById('progress-bar').style.width='30%';
+
+  function setFov(v){ fov=Math.max(30,Math.min(110,v)); camera.fov=fov; camera.updateProjectionMatrix(); document.getElementById('fovlbl').textContent=Math.round(fov)+'°'; }
+  function getLookDir(){ var phi=THREE.MathUtils.degToRad(90-lat),theta=THREE.MathUtils.degToRad(lon); return new THREE.Vector3(500*Math.sin(phi)*Math.cos(theta),500*Math.cos(phi),500*Math.sin(phi)*Math.sin(theta)); }
+  function lonLatToScreen(hLon,hLat){
+    var phi=THREE.MathUtils.degToRad(90-hLat),theta=THREE.MathUtils.degToRad(hLon);
+    var w=new THREE.Vector3(500*Math.sin(phi)*Math.cos(theta),500*Math.cos(phi),500*Math.sin(phi)*Math.sin(theta));
+    if(getLookDir().normalize().dot(w.clone().normalize())<0.1)return null;
+    var p=w.clone().project(camera);
+    var x=(p.x*0.5+0.5)*window.innerWidth,y=(-p.y*0.5+0.5)*window.innerHeight;
+    if(x<-60||x>window.innerWidth+60||y<-60||y>window.innerHeight+60)return null;
+    return{x,y};
+  }
+  function clickLL(ex,ey){ var m=new THREE.Vector2((ex/window.innerWidth)*2-1,-(ey/window.innerHeight)*2+1); var rc=new THREE.Raycaster(); rc.setFromCamera(m,camera); var d=rc.ray.direction.clone().normalize(); return{lon:THREE.MathUtils.radToDeg(Math.atan2(d.x*500,d.z*500)),lat:THREE.MathUtils.radToDeg(Math.asin(d.y))}; }
+
+  function switchScene(name){
+    var tr=document.getElementById('transition');
+    tr.style.pointerEvents='all'; tr.style.opacity='1';
+    setTimeout(function(){
+      currentScene=name; mat.map=texCache[name]; mat.needsUpdate=true;
+      document.getElementById('sname').textContent=SCENES[name].name;
+      autoSpin=false; lon=0; lat=0;
+      // Remove old portal/hs els
+      Object.values(portalEls).forEach(function(e){if(e.parentNode)e.parentNode.removeChild(e);}); portalEls={};
+      Object.keys(sceneHS).forEach(function(s){sceneHS[s].forEach(function(h){if(h.el&&h.el.parentNode)h.el.parentNode.removeChild(h.el);});});
+      activeCard=null;
+      renderPortals(); renderHotspots();
+      tr.style.opacity='0'; setTimeout(function(){tr.style.pointerEvents='none';},350);
+    },360);
+  }
+
+  function renderPortals(){
+    PORTALS.filter(function(p){return p.from===currentScene;}).forEach(function(p){
+      var el=document.createElement('div'); el.className='portal'; el.id='portal-'+p.id;
+      el.innerHTML='<div class="portal-ring"><span class="arr">&#x2728;</span><span class="plbl">'+p.label+'</span></div>';
+      el.addEventListener('click',function(e){e.stopPropagation();switchScene(p.to);});
+      document.body.appendChild(el); portalEls[p.id]=el;
+    });
+  }
+  function updatePortals(){
+    PORTALS.filter(function(p){return p.from===currentScene;}).forEach(function(p){
+      var el=portalEls[p.id]; if(!el)return;
+      var pos=lonLatToScreen(p.lon,p.lat);
+      if(pos){el.style.display='';el.style.left=pos.x+'px';el.style.top=pos.y+'px';}
+      else el.style.display='none';
+    });
+  }
+
+  function renderHotspots(){ sceneHS[currentScene].forEach(createHSEl); }
+  function createHSEl(hs){
+    var el=document.createElement('div'); el.className='hotspot'; el.id='hs-'+hs.id;
+    el.innerHTML='<div class="hs-ring">i</div><div class="hs-card" id="hsc-'+hs.id+'"><h4></h4><p></p><div class="ca"><button class="cb edit" onclick="editHS('+hs.id+')">✏️ 编辑</button><button class="cb del" onclick="delHS('+hs.id+')">🗑 删除</button></div></div>';
+    updCard(el,hs);
+    el.querySelector('.hs-ring').addEventListener('click',function(e){e.stopPropagation();toggleCard(hs.id);});
+    document.body.appendChild(el); hs.el=el;
+  }
+  function updCard(el,hs){el.querySelector('h4').textContent=hs.title;el.querySelector('p').textContent=hs.desc;}
+  function toggleCard(id){
+    if(activeCard===id){document.getElementById('hsc-'+id).classList.remove('show');activeCard=null;}
+    else{if(activeCard!==null){var p=document.getElementById('hsc-'+activeCard);if(p)p.classList.remove('show');}document.getElementById('hsc-'+id).classList.add('show');activeCard=id;}
+  }
+  function updateHotspots(){
+    sceneHS[currentScene].forEach(function(hs){
+      if(!hs.el)return;
+      var pos=lonLatToScreen(hs.lon,hs.lat);
+      if(pos){hs.el.style.display='';hs.el.style.left=pos.x+'px';hs.el.style.top=pos.y+'px';}
+      else{hs.el.style.display='none';if(activeCard===hs.id){document.getElementById('hsc-'+hs.id).classList.remove('show');activeCard=null;}}
+    });
+  }
+  window.editHS=function(id){var hs=null;Object.values(sceneHS).forEach(function(a){a.forEach(function(h){if(h.id===id)hs=h;});});if(!hs)return;editingId=id;document.getElementById('mtitle').textContent='编辑标记';document.getElementById('m-title').value=hs.title;document.getElementById('m-desc').value=hs.desc;document.getElementById('modal-bg').classList.add('show');};
+  window.delHS=function(id){var a=sceneHS[currentScene],i=a.findIndex(function(h){return h.id===id;});if(i===-1)return;if(a[i].el&&a[i].el.parentNode)a[i].el.parentNode.removeChild(a[i].el);a.splice(i,1);if(activeCard===id)activeCard=null;};
+
+  var addBtn=document.getElementById('add-btn');
+  addBtn.addEventListener('click',function(){addMode=!addMode;addBtn.classList.toggle('active',addMode);document.getElementById('add-label').textContent=addMode?'点击画面放置':'添加标记';document.getElementById('c').className=addMode?'add-mode':'';});
+  document.getElementById('c').addEventListener('click',function(e){
+    if(!addMode)return;
+    var ll=clickLL(e.clientX,e.clientY);
+    pendingHS={lon:ll.lon,lat:ll.lat,scene:currentScene};editingId=null;
+    document.getElementById('mtitle').textContent='添加标记（'+SCENES[currentScene].name+'）';
+    document.getElementById('m-title').value='';document.getElementById('m-desc').value='';
+    document.getElementById('modal-bg').classList.add('show');
+  });
+  document.getElementById('msave').addEventListener('click',function(){
+    var title=document.getElementById('m-title').value.trim(),desc=document.getElementById('m-desc').value.trim();
+    if(!title){document.getElementById('m-title').focus();return;}
+    if(editingId!==null){var hs=null;Object.values(sceneHS).forEach(function(a){a.forEach(function(h){if(h.id===editingId)hs=h;});});if(hs){hs.title=title;hs.desc=desc;updCard(hs.el,hs);}}
+    else if(pendingHS){var hs={id:++hsCounter,lon:pendingHS.lon,lat:pendingHS.lat,title:title,desc:desc};sceneHS[pendingHS.scene].push(hs);if(pendingHS.scene===currentScene)createHSEl(hs);}
+    document.getElementById('modal-bg').classList.remove('show');pendingHS=null;editingId=null;
+    addMode=false;addBtn.classList.remove('active');document.getElementById('add-label').textContent='添加标记';document.getElementById('c').className='';
+  });
+  document.getElementById('mcancel').addEventListener('click',function(){document.getElementById('modal-bg').classList.remove('show');pendingHS=null;editingId=null;});
+
+  var cv=document.getElementById('c');
+  cv.addEventListener('mousedown',function(e){if(addMode)return;isDrag=true;autoSpin=false;lastX=e.clientX;lastY=e.clientY;cv.classList.add('dragging');});
+  window.addEventListener('mouseup',function(){isDrag=false;if(!addMode)cv.classList.remove('dragging');});
+  window.addEventListener('mousemove',function(e){if(!isDrag||addMode)return;lon-=(e.clientX-lastX)*0.15;lat=Math.max(-85,Math.min(85,lat+(e.clientY-lastY)*0.15));lastX=e.clientX;lastY=e.clientY;});
+  cv.addEventListener('wheel',function(e){setFov(fov+e.deltaY*0.03);e.preventDefault();},{passive:false});
+  var lD=0,lTX=0,lTY=0;
+  cv.addEventListener('touchstart',function(e){if(addMode)return;autoSpin=false;if(e.touches.length===1){lTX=e.touches[0].clientX;lTY=e.touches[0].clientY;}if(e.touches.length===2){var dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;lD=Math.sqrt(dx*dx+dy*dy);}e.preventDefault();},{passive:false});
+  cv.addEventListener('touchmove',function(e){if(addMode)return;if(e.touches.length===1){lon-=(e.touches[0].clientX-lTX)*0.15;lat=Math.max(-85,Math.min(85,lat+(e.touches[0].clientY-lTY)*0.15));lTX=e.touches[0].clientX;lTY=e.touches[0].clientY;}if(e.touches.length===2){var dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;var d=Math.sqrt(dx*dx+dy*dy);setFov(fov-(d-lD)*0.1);lD=d;}e.preventDefault();},{passive:false});
+  document.getElementById('bL').onclick=function(){lon-=15;autoSpin=false;};
+  document.getElementById('bR').onclick=function(){lon+=15;autoSpin=false;};
+  document.getElementById('bU').onclick=function(){lat=Math.max(-85,lat-10);autoSpin=false;};
+  document.getElementById('bD').onclick=function(){lat=Math.min(85,lat+10);autoSpin=false;};
+  document.getElementById('bZI').onclick=function(){setFov(fov-5);};
+  document.getElementById('bZO').onclick=function(){setFov(fov+5);};
+  document.getElementById('bFS').onclick=function(){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();};
+  window.addEventListener('resize',function(){renderer.setSize(window.innerWidth,window.innerHeight);camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();});
+  setTimeout(function(){document.getElementById('tip').style.opacity='0';},4000);
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if(autoSpin&&!isDrag)lon+=0.025;
+    camera.lookAt(getLookDir());
+    renderer.render(scene3,camera);
+    updateHotspots(); updatePortals();
+  }
+  animate();
+})();
+</script>
+</body>
+</html>
