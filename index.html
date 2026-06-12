@@ -10,6 +10,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
 #c { display:block; cursor:grab; }
 #c.dragging { cursor:grabbing; }
 #c.add-mode { cursor:crosshair; }
+#c.calib-mode { cursor:move; }
 #loading {
   position:fixed; inset:0; background:#111; z-index:999;
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;
@@ -41,6 +42,10 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   font-size:11px; cursor:pointer; transition:all 0.2s; flex-shrink:0;
 }
 .mode-btn:hover,.mode-btn.active { background:#00BAB3; color:#fff; border-color:#00BAB3; }
+.mode-btn.calib-btn {
+  background:rgba(255,180,0,0.12); border-color:rgba(255,180,0,0.5); color:#FFB400;
+}
+.mode-btn.calib-btn:hover,.mode-btn.calib-btn.active { background:#FFB400; color:#000; border-color:#FFB400; }
 #ui {
   position:fixed; bottom:18px; left:50%; transform:translateX(-50%);
   display:flex; gap:8px; align-items:center;
@@ -86,7 +91,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
 .cb { flex:1; padding:3px 0; border-radius:5px; font-size:11px; cursor:pointer; border:none; text-align:center; font-family:inherit; }
 .cb.edit { background:rgba(0,186,179,0.15); color:#00BAB3; border:1px solid rgba(0,186,179,0.3); }
 .cb.del { background:rgba(240,128,128,0.1); color:#F08080; border:1px solid rgba(240,128,128,0.25); }
-.portal { position:fixed; z-index:200; transform:translate(-50%,-50%); pointer-events:auto; cursor:pointer; }
+.portal { position:fixed; z-index:200; transform:translate(-50%,-50%); pointer-events:auto; }
 .portal-ring {
   width:54px; height:54px; border-radius:50%;
   background:rgba(255,180,0,0.12); border:2px solid #FFB400;
@@ -97,6 +102,46 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
 .portal-ring .arr { font-size:20px; line-height:1; }
 .portal-ring .plbl { font-size:9px; color:#FFB400; font-weight:600; }
 @keyframes portalPulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,180,0,0.4);}50%{box-shadow:0 0 0 10px rgba(255,180,0,0);} }
+/* ── Calibration UI ── */
+#calib-panel {
+  display:none;
+  position:fixed; bottom:80px; left:50%; transform:translateX(-50%);
+  background:rgba(10,10,10,0.92); backdrop-filter:blur(12px);
+  border:1px solid rgba(255,180,0,0.4); border-radius:14px;
+  padding:14px 18px; z-index:300; min-width:320px;
+}
+#calib-panel.show { display:block; }
+#calib-panel h4 { color:#FFB400; font-size:12px; margin-bottom:10px; letter-spacing:0.5px; }
+.calib-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.06);
+  gap:10px;
+}
+.calib-row:last-child { border-bottom:none; padding-bottom:0; }
+.calib-name { color:rgba(255,255,255,0.8); font-size:12px; flex:1; }
+.calib-coords { color:#FFB400; font-size:11px; font-family:monospace; min-width:110px; }
+.calib-set-btn {
+  background:rgba(255,180,0,0.15); border:1px solid rgba(255,180,0,0.4);
+  color:#FFB400; padding:4px 10px; border-radius:8px; font-size:10px;
+  cursor:pointer; white-space:nowrap; font-family:inherit;
+}
+.calib-set-btn:hover { background:#FFB400; color:#000; }
+.calib-copy-btn {
+  background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.5); padding:4px 10px; border-radius:8px; font-size:10px;
+  cursor:pointer; font-family:inherit; transition:all 0.2s;
+}
+.calib-copy-btn:hover { background:rgba(255,255,255,0.15); color:#fff; }
+#calib-hint { color:rgba(255,255,255,0.35); font-size:10px; margin-top:10px; line-height:1.5; }
+#coord-badge {
+  display:none;
+  position:fixed; top:60px; right:14px;
+  background:rgba(0,0,0,0.7); border:1px solid rgba(255,180,0,0.3);
+  color:#FFB400; font-size:10px; font-family:monospace;
+  padding:4px 10px; border-radius:8px; z-index:300; pointer-events:none;
+}
+#coord-badge.show { display:block; }
+/* ── Modal ── */
 #modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; z-index:500; }
 #modal-bg.show { display:flex; }
 #modal { background:#181818; border:1px solid rgba(0,186,179,0.2); border-radius:14px; padding:20px; width:300px; }
@@ -123,7 +168,9 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   <div class="logo-sm">Y SUITES</div>
   <div id="scene-badge">📍 <span id="sname">走廊</span></div>
   <button id="add-btn" class="mode-btn"><span style="width:6px;height:6px;border-radius:50%;background:currentColor"></span><span id="add-label">添加标记</span></button>
+  <button id="calib-btn" class="mode-btn calib-btn" title="传送门校准">⊕ 校准传送门</button>
 </div>
+<div id="coord-badge">lon: 0° / lat: 0°</div>
 <div id="tip">拖拽旋转 · 滚轮缩放 · 点击 ✨ 切换场景</div>
 <div id="ui">
   <button class="btn" id="bL">&#8249;</button><button class="btn" id="bR">&#8250;</button>
@@ -133,6 +180,14 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   <div class="sep"></div>
   <button class="btn" id="bFS">&#x26F6;</button>
 </div>
+
+<!-- 校准面板 -->
+<div id="calib-panel">
+  <h4>⊕ 传送门坐标校准</h4>
+  <div id="calib-rows"></div>
+  <p id="calib-hint">转动视角对准门口，点击「设为当前视角」将传送门移到这里。<br>完成后复制坐标，更新 index.html 第 PORTALS 行。</p>
+</div>
+
 <div id="modal-bg"><div id="modal">
   <h3 id="mtitle">添加标记</h3>
   <label>标题</label><input id="m-title" type="text" placeholder="如：衣柜" maxlength="20">
@@ -143,10 +198,12 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
+  var BASE = 'https://ysuites-china.github.io/ysuites-vr/';
   var SCENES = {
-    corridor:{ file:'corridor.webp', name:'走廊' },
-    room:    { file:'room.webp',     name:'卧室' }
+    corridor:{ file: BASE+'corridor.webp', name:'走廊' },
+    room:    { file: BASE+'room.webp',     name:'卧室' }
   };
+  // 传送门配置 — 校准后更新 lon/lat 值
   var PORTALS = [
     { id:'p1', from:'corridor', to:'room',     lon:10,  lat:2, label:'进入卧室' },
     { id:'p2', from:'room',     to:'corridor', lon:180, lat:2, label:'返回走廊' }
@@ -161,14 +218,14 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   var mat = new THREE.MeshBasicMaterial();
   var mesh = new THREE.Mesh(geo,mat); scene3.add(mesh);
 
-  var lon=0,lat=0,fov=75,isDrag=false,lastX=0,lastY=0,autoSpin=true,addMode=false;
+  var lon=0,lat=0,fov=75,isDrag=false,lastX=0,lastY=0,autoSpin=true,addMode=false,calibMode=false;
   var currentScene='corridor', texCache={};
   var sceneHS={corridor:[],room:[]};
   var hsCounter=0,activeCard=null,pendingHS=null,editingId=null;
   var portalEls={};
 
-  // ── Lazy load: load current scene first, then background ──
-  function loadTex(name, onProgress, onDone) {
+  // ── Lazy load ──
+  function loadTex(name, onDone) {
     if(texCache[name]){ onDone(texCache[name]); return; }
     var img = new Image();
     img.onload = function(){
@@ -182,8 +239,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     img.src = SCENES[name].file;
   }
 
-  // Load first scene, show it, then load second in background
-  loadTex('corridor', null, function(tex){
+  loadTex('corridor', function(tex){
     mat.map = tex; mat.needsUpdate = true;
     document.getElementById('progress-bar').style.width = '60%';
     document.getElementById('load-msg').textContent = '加载完成';
@@ -192,8 +248,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
       setTimeout(function(){ document.getElementById('loading').style.display='none'; },500);
     },200);
     renderPortals(); renderHotspots();
-    // Background load room
-    loadTex('room', null, function(){ document.getElementById('progress-bar').style.width='100%'; });
+    loadTex('room', function(){ document.getElementById('progress-bar').style.width='100%'; });
   });
   document.getElementById('progress-bar').style.width='30%';
 
@@ -217,11 +272,11 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
       currentScene=name; mat.map=texCache[name]; mat.needsUpdate=true;
       document.getElementById('sname').textContent=SCENES[name].name;
       autoSpin=false; lon=0; lat=0;
-      // Remove old portal/hs els
       Object.values(portalEls).forEach(function(e){if(e.parentNode)e.parentNode.removeChild(e);}); portalEls={};
       Object.keys(sceneHS).forEach(function(s){sceneHS[s].forEach(function(h){if(h.el&&h.el.parentNode)h.el.parentNode.removeChild(h.el);});});
       activeCard=null;
       renderPortals(); renderHotspots();
+      if(calibMode) buildCalibRows();
       tr.style.opacity='0'; setTimeout(function(){tr.style.pointerEvents='none';},350);
     },360);
   }
@@ -230,7 +285,10 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     PORTALS.filter(function(p){return p.from===currentScene;}).forEach(function(p){
       var el=document.createElement('div'); el.className='portal'; el.id='portal-'+p.id;
       el.innerHTML='<div class="portal-ring"><span class="arr">&#x2728;</span><span class="plbl">'+p.label+'</span></div>';
-      el.addEventListener('click',function(e){e.stopPropagation();switchScene(p.to);});
+      el.addEventListener('click',function(e){
+        e.stopPropagation();
+        if(!calibMode) switchScene(p.to);
+      });
       document.body.appendChild(el); portalEls[p.id]=el;
     });
   }
@@ -267,8 +325,73 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   window.editHS=function(id){var hs=null;Object.values(sceneHS).forEach(function(a){a.forEach(function(h){if(h.id===id)hs=h;});});if(!hs)return;editingId=id;document.getElementById('mtitle').textContent='编辑标记';document.getElementById('m-title').value=hs.title;document.getElementById('m-desc').value=hs.desc;document.getElementById('modal-bg').classList.add('show');};
   window.delHS=function(id){var a=sceneHS[currentScene],i=a.findIndex(function(h){return h.id===id;});if(i===-1)return;if(a[i].el&&a[i].el.parentNode)a[i].el.parentNode.removeChild(a[i].el);a.splice(i,1);if(activeCard===id)activeCard=null;};
 
+  // ── 校准模式 ──
+  var coordBadge=document.getElementById('coord-badge');
+  var calibPanel=document.getElementById('calib-panel');
+  var calibBtn=document.getElementById('calib-btn');
+
+  function fmtLL(l){ return Math.round(l*10)/10; }
+
+  function buildCalibRows(){
+    var container=document.getElementById('calib-rows');
+    container.innerHTML='';
+    var portalsHere=PORTALS.filter(function(p){return p.from===currentScene;});
+    if(portalsHere.length===0){
+      container.innerHTML='<p style="color:rgba(255,255,255,0.35);font-size:11px;padding:6px 0">当前场景没有传送门</p>';
+      return;
+    }
+    portalsHere.forEach(function(p){
+      var row=document.createElement('div');
+      row.className='calib-row';
+      row.id='calib-row-'+p.id;
+      row.innerHTML=
+        '<span class="calib-name">'+p.label+'</span>'+
+        '<span class="calib-coords" id="cc-'+p.id+'">lon:'+fmtLL(p.lon)+'° lat:'+fmtLL(p.lat)+'°</span>'+
+        '<button class="calib-set-btn" id="cset-'+p.id+'">设为当前视角</button>'+
+        '<button class="calib-copy-btn" id="ccopy-'+p.id+'">复制</button>';
+      container.appendChild(row);
+
+      document.getElementById('cset-'+p.id).addEventListener('click',function(){
+        p.lon=fmtLL(lon); p.lat=fmtLL(lat);
+        document.getElementById('cc-'+p.id).textContent='lon:'+p.lon+'° lat:'+p.lat+'°';
+        // Flash feedback
+        var btn=document.getElementById('cset-'+p.id);
+        btn.textContent='✓ 已设置'; btn.style.background='#FFB400'; btn.style.color='#000';
+        setTimeout(function(){btn.textContent='设为当前视角';btn.style.background='';btn.style.color='';},1200);
+      });
+
+      document.getElementById('ccopy-'+p.id).addEventListener('click',function(){
+        var txt='{ id:\''+p.id+'\', from:\''+p.from+'\', to:\''+p.to+'\', lon:'+p.lon+', lat:'+p.lat+', label:\''+p.label+'\' }';
+        navigator.clipboard.writeText(txt).then(function(){
+          var btn=document.getElementById('ccopy-'+p.id);
+          btn.textContent='✓ 已复制'; btn.style.color='#FFB400';
+          setTimeout(function(){btn.textContent='复制';btn.style.color='';},1500);
+        });
+      });
+    });
+  }
+
+  calibBtn.addEventListener('click',function(){
+    calibMode=!calibMode;
+    calibBtn.classList.toggle('active',calibMode);
+    calibPanel.classList.toggle('show',calibMode);
+    coordBadge.classList.toggle('show',calibMode);
+    document.getElementById('c').classList.toggle('calib-mode',calibMode);
+    if(calibMode){
+      autoSpin=false;
+      buildCalibRows();
+    }
+  });
+
+  // ── 标记模式 ──
   var addBtn=document.getElementById('add-btn');
-  addBtn.addEventListener('click',function(){addMode=!addMode;addBtn.classList.toggle('active',addMode);document.getElementById('add-label').textContent=addMode?'点击画面放置':'添加标记';document.getElementById('c').className=addMode?'add-mode':'';});
+  addBtn.addEventListener('click',function(){
+    if(calibMode) return; // disable in calib mode
+    addMode=!addMode;
+    addBtn.classList.toggle('active',addMode);
+    document.getElementById('add-label').textContent=addMode?'点击画面放置':'添加标记';
+    document.getElementById('c').className=addMode?'add-mode':'';
+  });
   document.getElementById('c').addEventListener('click',function(e){
     if(!addMode)return;
     var ll=clickLL(e.clientX,e.clientY);
@@ -287,9 +410,10 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   });
   document.getElementById('mcancel').addEventListener('click',function(){document.getElementById('modal-bg').classList.remove('show');pendingHS=null;editingId=null;});
 
+  // ── 交互 ──
   var cv=document.getElementById('c');
-  cv.addEventListener('mousedown',function(e){if(addMode)return;isDrag=true;autoSpin=false;lastX=e.clientX;lastY=e.clientY;cv.classList.add('dragging');});
-  window.addEventListener('mouseup',function(){isDrag=false;if(!addMode)cv.classList.remove('dragging');});
+  cv.addEventListener('mousedown',function(e){if(addMode)return;isDrag=true;autoSpin=false;lastX=e.clientX;lastY=e.clientY;if(!calibMode)cv.classList.add('dragging');});
+  window.addEventListener('mouseup',function(){isDrag=false;if(!addMode&&!calibMode)cv.classList.remove('dragging');});
   window.addEventListener('mousemove',function(e){if(!isDrag||addMode)return;lon-=(e.clientX-lastX)*0.15;lat=Math.max(-85,Math.min(85,lat+(e.clientY-lastY)*0.15));lastX=e.clientX;lastY=e.clientY;});
   cv.addEventListener('wheel',function(e){setFov(fov+e.deltaY*0.03);e.preventDefault();},{passive:false});
   var lD=0,lTX=0,lTY=0;
@@ -311,6 +435,11 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     camera.lookAt(getLookDir());
     renderer.render(scene3,camera);
     updateHotspots(); updatePortals();
+    // 校准模式：实时坐标显示
+    if(calibMode){
+      var lo=fmtLL(lon), la=fmtLL(lat);
+      coordBadge.textContent='lon: '+lo+'°  lat: '+la+'°';
+    }
   }
   animate();
 })();
