@@ -390,15 +390,13 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
       var copyAll=document.getElementById('calib-copy-all');
       if(copyAll) copyAll.onclick=function(){
         var lines=PORTALS.map(function(p){
-          return '  { id:''+p.id+'', from:''+p.from+'', to:''+p.to+'', lon:'+p.lon+', lat:'+p.lat+', label:''+p.label+'' }';
+          return "  { id:'"+p.id+"', from:'"+p.from+"', to:'"+p.to+"', lon:"+p.lon+", lat:"+p.lat+", label:'"+p.label+"' }";
         });
-        var txt='PORTALS:
-'+lines.join('
-');
+        var txt="PORTALS:\n"+lines.join("\n");
         navigator.clipboard.writeText(txt).then(function(){
-          copyAll.textContent='✓ 已复制，粘贴给 Claude 即可';
-          copyAll.style.background='#FFB400'; copyAll.style.color='#000';
-          setTimeout(function(){copyAll.textContent='复制全部坐标 → 发给 Claude 永久保存';copyAll.style.background='';copyAll.style.color='';},2000);
+          copyAll.textContent="✓ 已复制，粘贴给 Claude 即可";
+          copyAll.style.background="#FFB400"; copyAll.style.color="#000";
+          setTimeout(function(){copyAll.textContent="复制全部坐标 → 发给 Claude 永久保存";copyAll.style.background="";copyAll.style.color="";},2000);
         });
       };
     }
