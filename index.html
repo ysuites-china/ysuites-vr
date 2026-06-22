@@ -393,7 +393,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
           var eLon=p.entryLon!==undefined?p.entryLon+' °':'-';
           var eLat=p.entryLat!==undefined?p.entryLat+' °':'-';
           var row=document.createElement('div'); row.className='calib-row';
-          row.innerHTML='<span class="calib-name" style="color:rgba(255,255,255,0.5)">从「'+p.from+'」进入</span>'
+          row.innerHTML='<span class="calib-name" style="color:rgba(255,255,255,0.5)">从「'+(SCENES[p.from]?SCENES[p.from].name:p.from)+'」进入</span>'
             +'<span class="calib-coords" id="ec-'+p.id+'">'+eLon+' / '+eLat+'</span>'
             +'<button class="calib-set-btn" id="eset-'+p.id+'">设为入场视角</button>';
           container.appendChild(row);
