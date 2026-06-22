@@ -67,7 +67,7 @@
     {
       "id": "卫生间1",
       "file": "img/15f-3bedroom-f/卫生间1.webp",
-      "name": "卫生间1",
+      "name": "浴室",
       "highlights": [
         "独立淋浴间",
         "浴室镜柜",
@@ -77,7 +77,7 @@
     {
       "id": "卫生间2",
       "file": "img/15f-3bedroom-f/卫生间2.webp",
-      "name": "卫生间2",
+      "name": "卫生间",
       "highlights": [
         "独立淋浴间",
         "浴室镜柜",
@@ -154,7 +154,7 @@
       "lat": -9.3,
       "entryLon": -120.9,
       "entryLat": -44.5,
-      "label": "卫生间1"
+      "label": "浴室"
     },
     {
       "id": "p8",
@@ -174,7 +174,7 @@
       "lat": -8.7,
       "entryLon": -206.5,
       "entryLat": -3.2,
-      "label": "卫生间2"
+      "label": "卫生间"
     },
     {
       "id": "p10",
