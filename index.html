@@ -159,11 +159,14 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   var params = new URLSearchParams(window.location.search);
   var roomId  = params.get('room') || '';
   var isEmbed = params.get('embed') === '1';
+  var isCalib = params.get('calib') === '1';
 
   if(isEmbed){
     document.getElementById('add-btn').style.display='none';
     document.getElementById('calib-btn').style.display='none';
     document.getElementById('dl-btn').style.display='none';
+  } else if(!isCalib){
+    document.getElementById('calib-btn').style.display='none';
   }
 
   if(!roomId){
