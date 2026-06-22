@@ -3,6 +3,8 @@
   "brand": "Y SUITES",
   "unit": "3 Bedroom · 15/F Unit C",
   "defaultScene": "入口走廊",
+  "startLon": 232.2,
+  "startLat": -11.4,
   "scenes": [
     { "id": "入口走廊", "file": "img/15f-3bedroom-c/入口走廊.webp", "name": "入口走廊" },
     { "id": "厨房走廊", "file": "img/15f-3bedroom-c/厨房走廊.webp", "name": "厨房走廊" },
@@ -14,19 +16,19 @@
     { "id": "厕所",     "file": "img/15f-3bedroom-c/厕所.webp",     "name": "卫生间" }
   ],
   "portals": [
-    { "id": "p1",  "from": "入口走廊", "to": "厨房走廊", "lon": -120, "lat": 0, "label": "厨房" },
-    { "id": "p2",  "from": "厨房走廊", "to": "入口走廊", "lon": 180,  "lat": 0, "label": "返回入口" },
-    { "id": "p3",  "from": "厨房走廊", "to": "厨房",     "lon": 0,    "lat": 0, "label": "进入厨房" },
-    { "id": "p4",  "from": "厨房",     "to": "厨房走廊", "lon": 0,    "lat": 0, "label": "返回" },
-    { "id": "p5",  "from": "入口走廊", "to": "01房间",   "lon": 0,    "lat": 0, "label": "卧室1" },
-    { "id": "p6",  "from": "01房间",   "to": "入口走廊", "lon": 0,    "lat": 0, "label": "返回入口" },
-    { "id": "p7",  "from": "入口走廊", "to": "更多房间", "lon": 120,  "lat": 0, "label": "更多房间" },
-    { "id": "p8",  "from": "更多房间", "to": "入口走廊", "lon": 180,  "lat": 0, "label": "返回入口" },
-    { "id": "p9",  "from": "更多房间", "to": "2房间",    "lon": -90,  "lat": 0, "label": "卧室2" },
-    { "id": "p10", "from": "2房间",    "to": "更多房间", "lon": 0,    "lat": 0, "label": "返回" },
-    { "id": "p11", "from": "更多房间", "to": "3房间",    "lon": 90,   "lat": 0, "label": "卧室3" },
-    { "id": "p12", "from": "3房间",    "to": "更多房间", "lon": 0,    "lat": 0, "label": "返回" },
-    { "id": "p13", "from": "更多房间", "to": "厕所",     "lon": 0,    "lat": 0, "label": "卫生间" },
-    { "id": "p14", "from": "厕所",     "to": "更多房间", "lon": 0,    "lat": 0, "label": "返回" }
+    { "id": "p1",  "from": "入口走廊", "to": "厨房走廊", "lon": 283.3, "lat": -14.9, "label": "厨房" },
+    { "id": "p2",  "from": "厨房走廊", "to": "入口走廊", "lon": 101.3, "lat": -8.7,  "entryLon": 203.1, "entryLat": -10.3, "label": "返回入口" },
+    { "id": "p3",  "from": "厨房走廊", "to": "厨房",     "lon": -65.1, "lat": -8.1,  "entryLon": 442.9, "entryLat": -6.7,  "label": "进入厨房" },
+    { "id": "p4",  "from": "厨房",     "to": "厨房走廊", "lon": 199.8, "lat": -2.6,  "label": "返回" },
+    { "id": "p5",  "from": "入口走廊", "to": "01房间",   "lon": 238.5, "lat": -12.5, "entryLon": 234,   "entryLat": -10.2, "label": "卧室1" },
+    { "id": "p6",  "from": "01房间",   "to": "入口走廊", "lon": 34.9,  "lat": -10.2, "entryLon": 203.1, "entryLat": -10.3, "label": "返回入口" },
+    { "id": "p7",  "from": "入口走廊", "to": "更多房间", "lon": 184.3, "lat": -11.5, "entryLon": 122,   "entryLat": -11.4, "label": "更多房间" },
+    { "id": "p8",  "from": "更多房间", "to": "入口走廊", "lon": 315.3, "lat": -10.2, "entryLon": 223.9, "entryLat": -15.1, "label": "返回入口" },
+    { "id": "p9",  "from": "更多房间", "to": "2房间",    "lon": 198.4, "lat": -4.5,  "entryLon": -134.1,"entryLat": -15.8, "label": "卧室2" },
+    { "id": "p10", "from": "2房间",    "to": "更多房间", "lon": 66.4,  "lat": -4.8,  "entryLon": 62.6,  "entryLat": 2.6,   "label": "返回" },
+    { "id": "p11", "from": "更多房间", "to": "3房间",    "lon": 103.5, "lat": -6.1,  "entryLon": 159.7, "entryLat": -12.8, "label": "卧室3" },
+    { "id": "p12", "from": "3房间",    "to": "更多房间", "lon": -20.4, "lat": -11.6, "entryLon": 3.8,   "entryLat": -0.4,  "label": "返回" },
+    { "id": "p13", "from": "更多房间", "to": "厕所",     "lon": 35.5,  "lat": -8.5,  "entryLon": 24.8,  "entryLat": -12.1, "label": "卫生间" },
+    { "id": "p14", "from": "厕所",     "to": "更多房间", "lon": 257.5, "lat": -6.9,  "entryLon": 263.3, "entryLat": -5.4,  "label": "返回" }
   ]
 }
