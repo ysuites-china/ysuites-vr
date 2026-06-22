@@ -1,0 +1,99 @@
+{
+  "title": "Y Suites · 2 Bedroom",
+  "brand": "Y SUITES",
+  "unit": "2 Bedroom · 15/F Unit D",
+  "defaultScene": "hallway1",
+  "scenes": [
+    {
+      "id": "hallway1",
+      "file": "img/15f-2bedroom-d/hallway1.webp",
+      "name": "走廊"
+    },
+    {
+      "id": "hallway2",
+      "file": "img/15f-2bedroom-d/hallway2.webp",
+      "name": "走廊2"
+    },
+    {
+      "id": "room01",
+      "file": "img/15f-2bedroom-d/room01.webp",
+      "name": "卧室1"
+    },
+    {
+      "id": "room02",
+      "file": "img/15f-2bedroom-d/room02.webp",
+      "name": "卧室2"
+    },
+    {
+      "id": "bathroom",
+      "file": "img/15f-2bedroom-d/bathroom.webp",
+      "name": "卫生间"
+    }
+  ],
+  "portals": [
+    {
+      "id": "p1",
+      "from": "hallway1",
+      "to": "hallway2",
+      "lon": 0,
+      "lat": 0,
+      "label": "继续走廊"
+    },
+    {
+      "id": "p2",
+      "from": "hallway2",
+      "to": "hallway1",
+      "lon": 0,
+      "lat": 0,
+      "label": "返回走廊"
+    },
+    {
+      "id": "p3",
+      "from": "hallway2",
+      "to": "room01",
+      "lon": 0,
+      "lat": 0,
+      "label": "卧室1"
+    },
+    {
+      "id": "p4",
+      "from": "room01",
+      "to": "hallway2",
+      "lon": 0,
+      "lat": 0,
+      "label": "返回走廊"
+    },
+    {
+      "id": "p5",
+      "from": "hallway2",
+      "to": "room02",
+      "lon": 0,
+      "lat": 0,
+      "label": "卧室2"
+    },
+    {
+      "id": "p6",
+      "from": "room02",
+      "to": "hallway2",
+      "lon": 0,
+      "lat": 0,
+      "label": "返回走廊"
+    },
+    {
+      "id": "p7",
+      "from": "hallway2",
+      "to": "bathroom",
+      "lon": 0,
+      "lat": 0,
+      "label": "卫生间"
+    },
+    {
+      "id": "p8",
+      "from": "bathroom",
+      "to": "hallway2",
+      "lon": 0,
+      "lat": 0,
+      "label": "返回走廊"
+    }
+  ]
+}

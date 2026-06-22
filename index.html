@@ -16,36 +16,41 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;
   transition:opacity 0.5s;
 }
-#loading .logo { color:#00BAB3; font-size:22px; font-weight:700; letter-spacing:2px; }
 #progress-wrap { width:200px; height:3px; background:rgba(255,255,255,0.1); border-radius:2px; }
 #progress-bar { height:100%; width:0%; background:#00BAB3; border-radius:2px; transition:width 0.3s; }
 #load-msg { color:rgba(255,255,255,0.4); font-size:12px; }
+#error-screen {
+  position:fixed; inset:0; background:#111; z-index:999;
+  display:none; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+}
+#error-screen p { color:rgba(255,255,255,0.5); font-size:13px; }
 #transition { position:fixed; inset:0; background:#000; z-index:900; opacity:0; pointer-events:none; transition:opacity 0.35s; }
 #topbar {
   position:fixed; top:0; left:0; right:0; height:50px;
   background:rgba(0,0,0,0.6); backdrop-filter:blur(10px);
   border-bottom:1px solid rgba(255,255,255,0.08);
   display:flex; align-items:center; justify-content:space-between;
-  padding:0 16px; z-index:100; gap:10px;
+  padding:0 16px; z-index:100; gap:8px;
 }
 .logo-sm { color:#00BAB3; font-weight:700; font-size:14px; letter-spacing:1px; flex-shrink:0; }
 #scene-badge {
   color:rgba(255,255,255,0.5); font-size:11px;
   background:rgba(255,255,255,0.07); padding:3px 11px;
-  border-radius:10px; flex-shrink:0;
+  border-radius:10px; flex-shrink:0; white-space:nowrap;
 }
 #scene-badge span { color:#fff; }
 .mode-btn {
   display:flex; align-items:center; gap:6px;
   background:rgba(0,186,179,0.12); border:1px solid rgba(0,186,179,0.5);
   color:#00BAB3; padding:5px 13px; border-radius:18px;
-  font-size:11px; cursor:pointer; transition:all 0.2s; flex-shrink:0;
+  font-size:11px; cursor:pointer; transition:all 0.2s; flex-shrink:0; white-space:nowrap;
 }
 .mode-btn:hover,.mode-btn.active { background:#00BAB3; color:#fff; border-color:#00BAB3; }
-.mode-btn.calib-btn {
-  background:rgba(255,180,0,0.12); border-color:rgba(255,180,0,0.5); color:#FFB400;
-}
-.mode-btn.calib-btn:hover,.mode-btn.calib-btn.active { background:#FFB400; color:#000; border-color:#FFB400; }
+.calib-btn { background:rgba(255,180,0,0.12); border-color:rgba(255,180,0,0.5); color:#FFB400; }
+.calib-btn:hover,.calib-btn.active { background:#FFB400; color:#000; border-color:#FFB400; }
+.dl-btn { background:rgba(255,255,255,0.07); border-color:rgba(255,255,255,0.25); color:rgba(255,255,255,0.7); }
+.dl-btn:hover { background:rgba(255,255,255,0.18); color:#fff; }
+.dl-btn:disabled { opacity:0.5; cursor:default; }
 #ui {
   position:fixed; bottom:18px; left:50%; transform:translateX(-50%);
   display:flex; gap:8px; align-items:center;
@@ -53,36 +58,16 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   border:1px solid rgba(255,255,255,0.1); border-radius:36px;
   padding:6px 14px; z-index:100;
 }
-.btn {
-  background:rgba(255,255,255,0.1); border:none; color:#fff;
-  border-radius:50%; width:30px; height:30px; font-size:14px;
-  cursor:pointer; display:flex; align-items:center; justify-content:center;
-}
+.btn { background:rgba(255,255,255,0.1); border:none; color:#fff; border-radius:50%; width:30px; height:30px; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
 .btn:hover { background:rgba(255,255,255,0.22); }
 #fovlbl { color:rgba(255,255,255,0.5); font-size:11px; min-width:32px; text-align:center; }
 .sep { width:1px; height:16px; background:rgba(255,255,255,0.1); }
-#tip {
-  position:fixed; top:62px; left:50%; transform:translateX(-50%);
-  color:rgba(255,255,255,0.75); font-size:12px;
-  background:rgba(0,0,0,0.5); padding:5px 14px; border-radius:18px;
-  pointer-events:none; transition:opacity 1s; z-index:99; white-space:nowrap;
-}
+#tip { position:fixed; top:62px; left:50%; transform:translateX(-50%); color:rgba(255,255,255,0.75); font-size:12px; background:rgba(0,0,0,0.5); padding:5px 14px; border-radius:18px; pointer-events:none; transition:opacity 1s; z-index:99; white-space:nowrap; }
 .hotspot { position:fixed; z-index:200; transform:translate(-50%,-50%); pointer-events:auto; }
-.hs-ring {
-  width:32px; height:32px; border-radius:50%;
-  background:rgba(0,186,179,0.2); border:2px solid #00BAB3;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; color:#00BAB3; font-size:12px; font-weight:bold;
-  animation:pulse 2.5s infinite;
-}
+.hs-ring { width:32px; height:32px; border-radius:50%; background:rgba(0,186,179,0.2); border:2px solid #00BAB3; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#00BAB3; font-size:12px; font-weight:bold; animation:pulse 2.5s infinite; }
 .hs-ring:hover { background:rgba(0,186,179,0.4); }
 @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(0,186,179,0.4);}50%{box-shadow:0 0 0 8px rgba(0,186,179,0);} }
-.hs-card {
-  position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
-  background:rgba(8,8,8,0.93); backdrop-filter:blur(14px);
-  border:1px solid rgba(0,186,179,0.3); border-radius:11px;
-  padding:10px 14px; min-width:160px; max-width:240px; display:none; color:#fff;
-}
+.hs-card { position:absolute; bottom:40px; left:50%; transform:translateX(-50%); background:rgba(8,8,8,0.93); backdrop-filter:blur(14px); border:1px solid rgba(0,186,179,0.3); border-radius:11px; padding:10px 14px; min-width:160px; max-width:240px; display:none; color:#fff; }
 .hs-card.show { display:block; }
 .hs-card::after { content:''; position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); border:6px solid transparent; border-bottom:none; border-top-color:rgba(0,186,179,0.3); }
 .hs-card h4 { color:#00BAB3; font-size:12px; margin-bottom:3px; }
@@ -92,61 +77,26 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
 .cb.edit { background:rgba(0,186,179,0.15); color:#00BAB3; border:1px solid rgba(0,186,179,0.3); }
 .cb.del { background:rgba(240,128,128,0.1); color:#F08080; border:1px solid rgba(240,128,128,0.25); }
 .portal { position:fixed; z-index:200; transform:translate(-50%,-50%); pointer-events:auto; }
-.portal-ring {
-  width:54px; height:54px; border-radius:50%;
-  background:rgba(255,180,0,0.12); border:2px solid #FFB400;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
-  transition:all 0.2s; animation:portalPulse 2s infinite;
-}
+.portal-ring { width:54px; height:54px; border-radius:50%; background:rgba(255,180,0,0.12); border:2px solid #FFB400; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; transition:all 0.2s; animation:portalPulse 2s infinite; }
 .portal-ring:hover { background:rgba(255,180,0,0.3); transform:scale(1.1); }
 .portal-ring .arr { font-size:20px; line-height:1; }
 .portal-ring .plbl { font-size:9px; color:#FFB400; font-weight:600; }
 @keyframes portalPulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,180,0,0.4);}50%{box-shadow:0 0 0 10px rgba(255,180,0,0);} }
-/* ── Calibration UI ── */
-#calib-panel {
-  display:none;
-  position:fixed; bottom:80px; left:50%; transform:translateX(-50%);
-  background:rgba(10,10,10,0.92); backdrop-filter:blur(12px);
-  border:1px solid rgba(255,180,0,0.4); border-radius:14px;
-  padding:14px 18px; z-index:300; min-width:320px;
-}
+#calib-panel { display:none; position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:rgba(10,10,10,0.92); backdrop-filter:blur(12px); border:1px solid rgba(255,180,0,0.4); border-radius:14px; padding:14px 18px; z-index:300; min-width:320px; max-width:90vw; max-height:60vh; overflow-y:auto; }
 #calib-panel.show { display:block; }
-#calib-panel h4 { color:#FFB400; font-size:12px; margin-bottom:10px; letter-spacing:0.5px; }
-.calib-row {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.06);
-  gap:10px;
-}
-.calib-row:last-child { border-bottom:none; padding-bottom:0; }
-.calib-name { color:rgba(255,255,255,0.8); font-size:12px; flex:1; }
-.calib-coords { color:#FFB400; font-size:11px; font-family:monospace; min-width:110px; }
-.calib-set-btn {
-  background:rgba(255,180,0,0.15); border:1px solid rgba(255,180,0,0.4);
-  color:#FFB400; padding:4px 10px; border-radius:8px; font-size:10px;
-  cursor:pointer; white-space:nowrap; font-family:inherit;
-}
+#calib-panel h4 { color:#FFB400; font-size:12px; margin-bottom:10px; }
+.calib-row { display:flex; align-items:center; justify-content:space-between; padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.06); gap:8px; }
+.calib-row:last-of-type { border-bottom:none; }
+.calib-name { color:rgba(255,255,255,0.8); font-size:11px; flex:1; }
+.calib-coords { color:#FFB400; font-size:10px; font-family:monospace; min-width:100px; }
+.calib-set-btn { background:rgba(255,180,0,0.15); border:1px solid rgba(255,180,0,0.4); color:#FFB400; padding:3px 8px; border-radius:8px; font-size:10px; cursor:pointer; white-space:nowrap; font-family:inherit; }
 .calib-set-btn:hover { background:#FFB400; color:#000; }
-.calib-copy-btn {
-  background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15);
-  color:rgba(255,255,255,0.5); padding:4px 10px; border-radius:8px; font-size:10px;
-  cursor:pointer; font-family:inherit; transition:all 0.2s;
-}
+.calib-copy-btn { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.5); padding:3px 8px; border-radius:8px; font-size:10px; cursor:pointer; font-family:inherit; }
 .calib-copy-btn:hover { background:rgba(255,255,255,0.15); color:#fff; }
 #calib-hint { color:rgba(255,255,255,0.35); font-size:10px; margin-top:10px; line-height:1.5; }
-.dl-btn {
-  background:rgba(255,255,255,0.07); border-color:rgba(255,255,255,0.25); color:rgba(255,255,255,0.7);
-}
-.dl-btn:hover { background:rgba(255,255,255,0.18); color:#fff; border-color:rgba(255,255,255,0.5); }
-.dl-btn:disabled { opacity:0.5; cursor:default; }
-#coord-badge {
-  display:none;
-  position:fixed; top:60px; right:14px;
-  background:rgba(0,0,0,0.7); border:1px solid rgba(255,180,0,0.3);
-  color:#FFB400; font-size:10px; font-family:monospace;
-  padding:4px 10px; border-radius:8px; z-index:300; pointer-events:none;
-}
+#calib-copy-all { margin-top:10px; width:100%; padding:7px; border-radius:8px; background:rgba(255,180,0,0.15); border:1px solid rgba(255,180,0,0.4); color:#FFB400; font-size:11px; cursor:pointer; font-family:inherit; }
+#coord-badge { display:none; position:fixed; top:60px; right:14px; background:rgba(0,0,0,0.7); border:1px solid rgba(255,180,0,0.3); color:#FFB400; font-size:10px; font-family:monospace; padding:4px 10px; border-radius:8px; z-index:300; pointer-events:none; }
 #coord-badge.show { display:block; }
-/* ── Modal ── */
 #modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; z-index:500; }
 #modal-bg.show { display:flex; }
 #modal { background:#181818; border:1px solid rgba(0,186,179,0.2); border-radius:14px; padding:20px; width:300px; }
@@ -163,18 +113,22 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
 </head>
 <body>
 <div id="loading">
-  <div class="logo-sm" style="font-size:20px;letter-spacing:3px">Y SUITES</div>
+  <div class="logo-sm" style="font-size:20px;letter-spacing:3px" id="loading-brand">Y SUITES</div>
   <div id="progress-wrap"><div id="progress-bar"></div></div>
   <p id="load-msg">正在加载...</p>
+</div>
+<div id="error-screen">
+  <div class="logo-sm" style="font-size:20px;letter-spacing:3px">Y SUITES</div>
+  <p id="error-msg">找不到指定房间</p>
 </div>
 <div id="transition"></div>
 <canvas id="c"></canvas>
 <div id="topbar">
-  <div class="logo-sm">Y SUITES</div>
-  <div id="scene-badge">📍 <span id="sname">走廊</span></div>
+  <div class="logo-sm" id="brand-label">Y SUITES</div>
+  <div id="scene-badge">📍 <span id="sname">-</span></div>
   <button id="add-btn" class="mode-btn"><span style="width:6px;height:6px;border-radius:50%;background:currentColor"></span><span id="add-label">添加标记</span></button>
-  <button id="calib-btn" class="mode-btn calib-btn" title="传送门校准">⊕ 校准传送门</button>
-  <button id="dl-btn" class="mode-btn dl-btn" title="下载离线版">⬇ 离线版</button>
+  <button id="calib-btn" class="mode-btn calib-btn">⊕ 校准传送门</button>
+  <button id="dl-btn" class="mode-btn dl-btn">⬇ 离线版</button>
 </div>
 <div id="coord-badge">lon: 0° / lat: 0°</div>
 <div id="tip">拖拽旋转 · 滚轮缩放 · 点击 ✨ 切换场景</div>
@@ -186,15 +140,12 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   <div class="sep"></div>
   <button class="btn" id="bFS">&#x26F6;</button>
 </div>
-
-<!-- 校准面板 -->
 <div id="calib-panel">
   <h4>⊕ 传送门坐标校准</h4>
   <div id="calib-rows"></div>
   <p id="calib-hint">转动视角对准门口，点「设为当前视角」移动传送门。坐标自动暂存在本机，刷新不丢失。</p>
-  <button id="calib-copy-all" style="margin-top:10px;width:100%;padding:7px;border-radius:8px;background:rgba(255,180,0,0.15);border:1px solid rgba(255,180,0,0.4);color:#FFB400;font-size:11px;cursor:pointer;font-family:inherit;">复制全部坐标 → 发给 Claude 永久保存</button>
+  <button id="calib-copy-all">复制全部坐标 → 发给 Claude 永久保存</button>
 </div>
-
 <div id="modal-bg"><div id="modal">
   <h3 id="mtitle">添加标记</h3>
   <label>标题</label><input id="m-title" type="text" placeholder="如：衣柜" maxlength="20">
@@ -205,309 +156,311 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
-  var BASE = 'https://ysuites-china.github.io/ysuites-vr/';
-  var SCENES = {
-    corridor:{ file: BASE+'corridor.webp', name:'走廊' },
-    room:    { file: BASE+'room.webp',     name:'卧室' }
-  };
-  // 传送门配置 — 校准后更新 lon/lat 值
-  var PORTALS = [
-    { id:'p1', from:'corridor', to:'room',     lon:196.4, lat:27.6, label:'进入卧室' },
-    { id:'p2', from:'room',     to:'corridor', lon:23.1, lat:20.2, label:'返回走廊' }
-  ];
+  var params = new URLSearchParams(window.location.search);
+  var roomId  = params.get('room') || '';
+  var isEmbed = params.get('embed') === '1';
 
-  // 从 localStorage 读取上次校准结果
-  (function(){ try{ var s=localStorage.getItem('ysuites-portals'); if(s){ var sp=JSON.parse(s); PORTALS.forEach(function(p){ var f=sp.find(function(x){return x.id===p.id;}); if(f){p.lon=f.lon;p.lat=f.lat;} }); } }catch(e){} })();
-
-  var renderer = new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth,window.innerHeight);
-  var scene3 = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
-  var geo = new THREE.SphereGeometry(500,60,40); geo.scale(-1,1,1);
-  var mat = new THREE.MeshBasicMaterial();
-  var mesh = new THREE.Mesh(geo,mat); scene3.add(mesh);
-
-  var lon=0,lat=0,fov=75,isDrag=false,lastX=0,lastY=0,autoSpin=true,addMode=false,calibMode=false;
-  var currentScene='corridor', texCache={};
-  var sceneHS={corridor:[],room:[]};
-  var hsCounter=0,activeCard=null,pendingHS=null,editingId=null;
-  var portalEls={};
-
-  // ── Lazy load ──
-  function loadTex(name, onDone) {
-    if(texCache[name]){ onDone(texCache[name]); return; }
-    var img = new Image();
-    img.onload = function(){
-      var tex = new THREE.Texture(img);
-      tex.wrapS = THREE.RepeatWrapping;
-      tex.needsUpdate = true;
-      texCache[name] = tex;
-      onDone(tex);
-    };
-    img.onerror = function(){ document.getElementById('load-msg').textContent='加载失败，请刷新重试'; };
-    img.src = SCENES[name].file;
+  if(isEmbed){
+    document.getElementById('add-btn').style.display='none';
+    document.getElementById('calib-btn').style.display='none';
+    document.getElementById('dl-btn').style.display='none';
   }
 
-  loadTex('corridor', function(tex){
-    mat.map = tex; mat.needsUpdate = true;
-    document.getElementById('progress-bar').style.width = '60%';
-    document.getElementById('load-msg').textContent = '加载完成';
-    setTimeout(function(){
-      document.getElementById('loading').style.opacity='0';
-      setTimeout(function(){ document.getElementById('loading').style.display='none'; },500);
-    },200);
-    renderPortals(); renderHotspots();
-    loadTex('room', function(){ document.getElementById('progress-bar').style.width='100%'; });
-  });
-  document.getElementById('progress-bar').style.width='30%';
-
-  function setFov(v){ fov=Math.max(30,Math.min(110,v)); camera.fov=fov; camera.updateProjectionMatrix(); document.getElementById('fovlbl').textContent=Math.round(fov)+'°'; }
-  function getLookDir(){ var phi=THREE.MathUtils.degToRad(90-lat),theta=THREE.MathUtils.degToRad(lon); return new THREE.Vector3(500*Math.sin(phi)*Math.cos(theta),500*Math.cos(phi),500*Math.sin(phi)*Math.sin(theta)); }
-  function lonLatToScreen(hLon,hLat){
-    var phi=THREE.MathUtils.degToRad(90-hLat),theta=THREE.MathUtils.degToRad(hLon);
-    var w=new THREE.Vector3(500*Math.sin(phi)*Math.cos(theta),500*Math.cos(phi),500*Math.sin(phi)*Math.sin(theta));
-    if(getLookDir().normalize().dot(w.clone().normalize())<0.1)return null;
-    var p=w.clone().project(camera);
-    var x=(p.x*0.5+0.5)*window.innerWidth,y=(-p.y*0.5+0.5)*window.innerHeight;
-    if(x<-60||x>window.innerWidth+60||y<-60||y>window.innerHeight+60)return null;
-    return{x,y};
-  }
-  function clickLL(ex,ey){ var m=new THREE.Vector2((ex/window.innerWidth)*2-1,-(ey/window.innerHeight)*2+1); var rc=new THREE.Raycaster(); rc.setFromCamera(m,camera); var d=rc.ray.direction.clone().normalize(); return{lon:THREE.MathUtils.radToDeg(Math.atan2(d.x*500,d.z*500)),lat:THREE.MathUtils.radToDeg(Math.asin(d.y))}; }
-
-  function switchScene(name){
-    var tr=document.getElementById('transition');
-    tr.style.pointerEvents='all'; tr.style.opacity='1';
-    setTimeout(function(){
-      currentScene=name; mat.map=texCache[name]; mat.needsUpdate=true;
-      document.getElementById('sname').textContent=SCENES[name].name;
-      autoSpin=false; lon=0; lat=0;
-      Object.values(portalEls).forEach(function(e){if(e.parentNode)e.parentNode.removeChild(e);}); portalEls={};
-      Object.keys(sceneHS).forEach(function(s){sceneHS[s].forEach(function(h){if(h.el&&h.el.parentNode)h.el.parentNode.removeChild(h.el);});});
-      activeCard=null;
-      renderPortals(); renderHotspots();
-      if(calibMode) buildCalibRows();
-      tr.style.opacity='0'; setTimeout(function(){tr.style.pointerEvents='none';},350);
-    },360);
+  if(!roomId){
+    document.getElementById('loading').style.display='none';
+    var es=document.getElementById('error-screen');
+    es.style.display='flex';
+    document.getElementById('error-msg').textContent='请在 URL 中指定房间，例如：?room=8f-studio-grand-e';
+    return;
   }
 
-  function renderPortals(){
-    PORTALS.filter(function(p){return p.from===currentScene;}).forEach(function(p){
-      var el=document.createElement('div'); el.className='portal'; el.id='portal-'+p.id;
-      el.innerHTML='<div class="portal-ring"><span class="arr">&#x2728;</span><span class="plbl">'+p.label+'</span></div>';
-      el.addEventListener('click',function(e){
-        e.stopPropagation();
-        if(!calibMode) switchScene(p.to);
-      });
-      document.body.appendChild(el); portalEls[p.id]=el;
+  fetch('rooms/'+roomId+'.json')
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(cfg){ initVR(cfg); })
+    .catch(function(){
+      document.getElementById('loading').style.display='none';
+      var es=document.getElementById('error-screen');
+      es.style.display='flex';
+      document.getElementById('error-msg').textContent='找不到房间：'+roomId;
     });
-  }
-  function updatePortals(){
-    PORTALS.filter(function(p){return p.from===currentScene;}).forEach(function(p){
-      var el=portalEls[p.id]; if(!el)return;
-      var pos=lonLatToScreen(p.lon,p.lat);
-      if(pos){el.style.display='';el.style.left=pos.x+'px';el.style.top=pos.y+'px';}
-      else el.style.display='none';
-    });
-  }
 
-  function renderHotspots(){ sceneHS[currentScene].forEach(createHSEl); }
-  function createHSEl(hs){
-    var el=document.createElement('div'); el.className='hotspot'; el.id='hs-'+hs.id;
-    el.innerHTML='<div class="hs-ring">i</div><div class="hs-card" id="hsc-'+hs.id+'"><h4></h4><p></p><div class="ca"><button class="cb edit" onclick="editHS('+hs.id+')">✏️ 编辑</button><button class="cb del" onclick="delHS('+hs.id+')">🗑 删除</button></div></div>';
-    updCard(el,hs);
-    el.querySelector('.hs-ring').addEventListener('click',function(e){e.stopPropagation();toggleCard(hs.id);});
-    document.body.appendChild(el); hs.el=el;
-  }
-  function updCard(el,hs){el.querySelector('h4').textContent=hs.title;el.querySelector('p').textContent=hs.desc;}
-  function toggleCard(id){
-    if(activeCard===id){document.getElementById('hsc-'+id).classList.remove('show');activeCard=null;}
-    else{if(activeCard!==null){var p=document.getElementById('hsc-'+activeCard);if(p)p.classList.remove('show');}document.getElementById('hsc-'+id).classList.add('show');activeCard=id;}
-  }
-  function updateHotspots(){
-    sceneHS[currentScene].forEach(function(hs){
-      if(!hs.el)return;
-      var pos=lonLatToScreen(hs.lon,hs.lat);
-      if(pos){hs.el.style.display='';hs.el.style.left=pos.x+'px';hs.el.style.top=pos.y+'px';}
-      else{hs.el.style.display='none';if(activeCard===hs.id){document.getElementById('hsc-'+hs.id).classList.remove('show');activeCard=null;}}
-    });
-  }
-  window.editHS=function(id){var hs=null;Object.values(sceneHS).forEach(function(a){a.forEach(function(h){if(h.id===id)hs=h;});});if(!hs)return;editingId=id;document.getElementById('mtitle').textContent='编辑标记';document.getElementById('m-title').value=hs.title;document.getElementById('m-desc').value=hs.desc;document.getElementById('modal-bg').classList.add('show');};
-  window.delHS=function(id){var a=sceneHS[currentScene],i=a.findIndex(function(h){return h.id===id;});if(i===-1)return;if(a[i].el&&a[i].el.parentNode)a[i].el.parentNode.removeChild(a[i].el);a.splice(i,1);if(activeCard===id)activeCard=null;};
+  function initVR(cfg){
+    document.title = cfg.title || 'Y Suites · VR';
+    document.getElementById('brand-label').textContent = cfg.brand || 'Y SUITES';
+    document.getElementById('loading-brand').textContent = cfg.brand || 'Y SUITES';
+    if(cfg.unit) document.getElementById('load-msg').textContent = cfg.unit;
 
-  // ── 校准模式 ──
-  var coordBadge=document.getElementById('coord-badge');
-  var calibPanel=document.getElementById('calib-panel');
-  var calibBtn=document.getElementById('calib-btn');
+    var SCENES  = {};
+    cfg.scenes.forEach(function(s){ SCENES[s.id]={file:s.file,name:s.name}; });
+    var PORTALS = cfg.portals.map(function(p){ return Object.assign({},p); });
+    var firstScene = cfg.defaultScene || cfg.scenes[0].id;
 
-  function fmtLL(l){ return Math.round(l*10)/10; }
+    // 从 localStorage 恢复校准坐标
+    try{
+      var saved=localStorage.getItem('ysuites-portals-'+roomId);
+      if(saved){ var sp=JSON.parse(saved); PORTALS.forEach(function(p){ var f=sp.find(function(x){return x.id===p.id;}); if(f){p.lon=f.lon;p.lat=f.lat;} }); }
+    }catch(e){}
 
-  function buildCalibRows(){
-    var container=document.getElementById('calib-rows');
-    container.innerHTML='';
-    var portalsHere=PORTALS.filter(function(p){return p.from===currentScene;});
-    if(portalsHere.length===0){
-      container.innerHTML='<p style="color:rgba(255,255,255,0.35);font-size:11px;padding:6px 0">当前场景没有传送门</p>';
-      return;
+    var renderer=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    var scene3=new THREE.Scene();
+    var camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+    var geo=new THREE.SphereGeometry(500,60,40); geo.scale(-1,1,1);
+    var mat=new THREE.MeshBasicMaterial();
+    var mesh=new THREE.Mesh(geo,mat); scene3.add(mesh);
+
+    var lon=0,lat=0,fov=75,isDrag=false,lastX=0,lastY=0,autoSpin=true,addMode=false,calibMode=false;
+    var currentScene=firstScene, texCache={};
+    var sceneHS={}; cfg.scenes.forEach(function(s){sceneHS[s.id]=[];});
+    var hsCounter=0,activeCard=null,pendingHS=null,editingId=null;
+    var portalEls={};
+
+    function loadTex(id,onDone){
+      if(texCache[id]){onDone(texCache[id]);return;}
+      var img=new Image();
+      img.crossOrigin='anonymous';
+      img.onload=function(){ var tex=new THREE.Texture(img); tex.wrapS=THREE.RepeatWrapping; tex.needsUpdate=true; texCache[id]=tex; onDone(tex); };
+      img.onerror=function(){ document.getElementById('load-msg').textContent='加载失败，请刷新重试'; };
+      img.src=SCENES[id].file;
     }
-    portalsHere.forEach(function(p){
-      var row=document.createElement('div');
-      row.className='calib-row';
-      row.id='calib-row-'+p.id;
-      row.innerHTML=
-        '<span class="calib-name">'+p.label+'</span>'+
-        '<span class="calib-coords" id="cc-'+p.id+'">lon:'+fmtLL(p.lon)+'° lat:'+fmtLL(p.lat)+'°</span>'+
-        '<button class="calib-set-btn" id="cset-'+p.id+'">设为当前视角</button>'+
-        '<button class="calib-copy-btn" id="ccopy-'+p.id+'">复制</button>';
-      container.appendChild(row);
 
-      document.getElementById('cset-'+p.id).addEventListener('click',function(){
-        p.lon=fmtLL(lon); p.lat=fmtLL(lat);
-        document.getElementById('cc-'+p.id).textContent='lon:'+p.lon+'° lat:'+p.lat+'°';
-        // Flash feedback
-        var btn=document.getElementById('cset-'+p.id);
-        btn.textContent='✓ 已设置'; btn.style.background='#FFB400'; btn.style.color='#000';
-        setTimeout(function(){btn.textContent='设为当前视角';btn.style.background='';btn.style.color='';},1200);
-        // 持久化到 localStorage
-        try{ localStorage.setItem('ysuites-portals', JSON.stringify(PORTALS.map(function(q){return{id:q.id,lon:q.lon,lat:q.lat};}))); }catch(e){}
+    // 加载第一个场景，然后后台预加载其余
+    loadTex(firstScene,function(tex){
+      mat.map=tex; mat.needsUpdate=true;
+      document.getElementById('progress-bar').style.width='60%';
+      document.getElementById('load-msg').textContent='加载完成';
+      setTimeout(function(){
+        document.getElementById('loading').style.opacity='0';
+        setTimeout(function(){document.getElementById('loading').style.display='none';},500);
+      },200);
+      renderPortals(); renderHotspots();
+      // 后台预加载其余场景
+      var others=cfg.scenes.filter(function(s){return s.id!==firstScene;});
+      var loaded=0;
+      others.forEach(function(s){
+        loadTex(s.id,function(){ loaded++; document.getElementById('progress-bar').style.width=(60+40*loaded/others.length)+'%'; });
       });
+    });
+    document.getElementById('progress-bar').style.width='30%';
 
-      document.getElementById('ccopy-'+p.id).addEventListener('click',function(){
-        var txt='{ id:\''+p.id+'\', from:\''+p.from+'\', to:\''+p.to+'\', lon:'+p.lon+', lat:'+p.lat+', label:\''+p.label+'\' }';
-        navigator.clipboard.writeText(txt).then(function(){
-          var btn=document.getElementById('ccopy-'+p.id);
-          btn.textContent='✓ 已复制'; btn.style.color='#FFB400';
-          setTimeout(function(){btn.textContent='复制';btn.style.color='';},1500);
+    function setFov(v){fov=Math.max(30,Math.min(110,v));camera.fov=fov;camera.updateProjectionMatrix();document.getElementById('fovlbl').textContent=Math.round(fov)+'°';}
+    function getLookDir(){var phi=THREE.MathUtils.degToRad(90-lat),theta=THREE.MathUtils.degToRad(lon);return new THREE.Vector3(500*Math.sin(phi)*Math.cos(theta),500*Math.cos(phi),500*Math.sin(phi)*Math.sin(theta));}
+    function lonLatToScreen(hLon,hLat){
+      var phi=THREE.MathUtils.degToRad(90-hLat),theta=THREE.MathUtils.degToRad(hLon);
+      var w=new THREE.Vector3(500*Math.sin(phi)*Math.cos(theta),500*Math.cos(phi),500*Math.sin(phi)*Math.sin(theta));
+      if(getLookDir().normalize().dot(w.clone().normalize())<0.1)return null;
+      var p=w.clone().project(camera);
+      var x=(p.x*0.5+0.5)*window.innerWidth,y=(-p.y*0.5+0.5)*window.innerHeight;
+      if(x<-60||x>window.innerWidth+60||y<-60||y>window.innerHeight+60)return null;
+      return{x:x,y:y};
+    }
+    function clickLL(ex,ey){var m=new THREE.Vector2((ex/window.innerWidth)*2-1,-(ey/window.innerHeight)*2+1);var rc=new THREE.Raycaster();rc.setFromCamera(m,camera);var d=rc.ray.direction.clone().normalize();return{lon:THREE.MathUtils.radToDeg(Math.atan2(d.x*500,d.z*500)),lat:THREE.MathUtils.radToDeg(Math.asin(d.y))};}
+
+    function switchScene(name){
+      var tr=document.getElementById('transition');
+      tr.style.pointerEvents='all'; tr.style.opacity='1';
+      setTimeout(function(){
+        currentScene=name; mat.map=texCache[name]; mat.needsUpdate=true;
+        document.getElementById('sname').textContent=SCENES[name].name;
+        autoSpin=false; lon=0; lat=0;
+        Object.values(portalEls).forEach(function(e){if(e.parentNode)e.parentNode.removeChild(e);}); portalEls={};
+        Object.keys(sceneHS).forEach(function(s){sceneHS[s].forEach(function(h){if(h.el&&h.el.parentNode)h.el.parentNode.removeChild(h.el);});});
+        activeCard=null;
+        renderPortals(); renderHotspots();
+        if(calibMode) buildCalibRows();
+        tr.style.opacity='0'; setTimeout(function(){tr.style.pointerEvents='none';},350);
+      },360);
+    }
+
+    function renderPortals(){
+      PORTALS.filter(function(p){return p.from===currentScene;}).forEach(function(p){
+        var el=document.createElement('div'); el.className='portal'; el.id='portal-'+p.id;
+        el.innerHTML='<div class="portal-ring"><span class="arr">&#x2728;</span><span class="plbl">'+p.label+'</span></div>';
+        el.addEventListener('click',function(e){e.stopPropagation();if(!calibMode)switchScene(p.to);});
+        document.body.appendChild(el); portalEls[p.id]=el;
+      });
+    }
+    function updatePortals(){
+      PORTALS.filter(function(p){return p.from===currentScene;}).forEach(function(p){
+        var el=portalEls[p.id]; if(!el)return;
+        var pos=lonLatToScreen(p.lon,p.lat);
+        if(pos){el.style.display='';el.style.left=pos.x+'px';el.style.top=pos.y+'px';}
+        else el.style.display='none';
+      });
+    }
+
+    function renderHotspots(){sceneHS[currentScene].forEach(createHSEl);}
+    function createHSEl(hs){
+      var el=document.createElement('div'); el.className='hotspot'; el.id='hs-'+hs.id;
+      el.innerHTML='<div class="hs-ring">i</div><div class="hs-card" id="hsc-'+hs.id+'"><h4></h4><p></p><div class="ca"><button class="cb edit" onclick="editHS('+hs.id+')">✏️ 编辑</button><button class="cb del" onclick="delHS('+hs.id+')">🗑 删除</button></div></div>';
+      updCard(el,hs);
+      el.querySelector('.hs-ring').addEventListener('click',function(e){e.stopPropagation();toggleCard(hs.id);});
+      document.body.appendChild(el); hs.el=el;
+    }
+    function updCard(el,hs){el.querySelector('h4').textContent=hs.title;el.querySelector('p').textContent=hs.desc;}
+    function toggleCard(id){
+      if(activeCard===id){document.getElementById('hsc-'+id).classList.remove('show');activeCard=null;}
+      else{if(activeCard!==null){var p=document.getElementById('hsc-'+activeCard);if(p)p.classList.remove('show');}document.getElementById('hsc-'+id).classList.add('show');activeCard=id;}
+    }
+    function updateHotspots(){
+      sceneHS[currentScene].forEach(function(hs){
+        if(!hs.el)return;
+        var pos=lonLatToScreen(hs.lon,hs.lat);
+        if(pos){hs.el.style.display='';hs.el.style.left=pos.x+'px';hs.el.style.top=pos.y+'px';}
+        else{hs.el.style.display='none';if(activeCard===hs.id){document.getElementById('hsc-'+hs.id).classList.remove('show');activeCard=null;}}
+      });
+    }
+    window.editHS=function(id){var hs=null;Object.values(sceneHS).forEach(function(a){a.forEach(function(h){if(h.id===id)hs=h;});});if(!hs)return;editingId=id;document.getElementById('mtitle').textContent='编辑标记';document.getElementById('m-title').value=hs.title;document.getElementById('m-desc').value=hs.desc;document.getElementById('modal-bg').classList.add('show');};
+    window.delHS=function(id){var a=sceneHS[currentScene],i=a.findIndex(function(h){return h.id===id;});if(i===-1)return;if(a[i].el&&a[i].el.parentNode)a[i].el.parentNode.removeChild(a[i].el);a.splice(i,1);if(activeCard===id)activeCard=null;};
+
+    // ── 校准模式 ──
+    function fmtLL(l){return Math.round(l*10)/10;}
+    function buildCalibRows(){
+      var container=document.getElementById('calib-rows'); container.innerHTML='';
+      var portalsHere=PORTALS.filter(function(p){return p.from===currentScene;});
+      if(!portalsHere.length){container.innerHTML='<p style="color:rgba(255,255,255,0.35);font-size:11px;padding:6px 0">当前场景没有传送门</p>';return;}
+      portalsHere.forEach(function(p){
+        var row=document.createElement('div'); row.className='calib-row';
+        row.innerHTML='<span class="calib-name">'+p.label+'</span><span class="calib-coords" id="cc-'+p.id+'">'+fmtLL(p.lon)+'° / '+fmtLL(p.lat)+'°</span><button class="calib-set-btn" id="cset-'+p.id+'">设为当前</button><button class="calib-copy-btn" id="ccopy-'+p.id+'">复制</button>';
+        container.appendChild(row);
+        document.getElementById('cset-'+p.id).addEventListener('click',function(){
+          p.lon=fmtLL(lon); p.lat=fmtLL(lat);
+          document.getElementById('cc-'+p.id).textContent=p.lon+'° / '+p.lat+'°';
+          try{localStorage.setItem('ysuites-portals-'+roomId,JSON.stringify(PORTALS.map(function(q){return{id:q.id,lon:q.lon,lat:q.lat};})));}catch(e){}
+          var btn=document.getElementById('cset-'+p.id);
+          btn.textContent='✓ 已设置'; btn.style.background='#FFB400'; btn.style.color='#000';
+          setTimeout(function(){btn.textContent='设为当前';btn.style.background='';btn.style.color='';},1200);
+        });
+        document.getElementById('ccopy-'+p.id).addEventListener('click',function(){
+          var txt="{ id:'"+p.id+"', from:'"+p.from+"', to:'"+p.to+"', lon:"+p.lon+", lat:"+p.lat+", label:'"+p.label+"' }";
+          navigator.clipboard.writeText(txt).then(function(){
+            var btn=document.getElementById('ccopy-'+p.id); btn.textContent='✓'; btn.style.color='#FFB400';
+            setTimeout(function(){btn.textContent='复制';btn.style.color='';},1500);
+          });
         });
       });
-    });
-  }
+    }
 
-  // ── 离线下载 ──
-  function imgToDataUrl(url){
-    return fetch(url).then(function(r){return r.blob();}).then(function(blob){
-      return new Promise(function(resolve){
-        var rd=new FileReader(); rd.onload=function(){resolve(rd.result);}; rd.readAsDataURL(blob);
-      });
-    });
-  }
-  document.getElementById('dl-btn').addEventListener('click',function(){
-    var btn=document.getElementById('dl-btn');
-    btn.textContent='⏳ 生成中...'; btn.disabled=true;
-    Promise.all([
-      fetch(window.location.href).then(function(r){return r.text();}),
-      imgToDataUrl(SCENES.corridor.file),
-      imgToDataUrl(SCENES.room.file)
-    ]).then(function(results){
-      var src=results[0], corrData=results[1], roomData=results[2];
-      // 嵌入图片
-      src=src.replace(/file:\s*BASE\+'corridor\.webp'/g,"file: '"+corrData+"'");
-      src=src.replace(/file:\s*BASE\+'room\.webp'/g,"file: '"+roomData+"'");
-      src=src.replace(/var BASE\s*=\s*'[^']*';/,"var BASE = '';");
-      // 写入当前内存中的 PORTALS（含最新校准值）
-      var portalsStr="var PORTALS = [\n"+PORTALS.map(function(p){
-        return "    { id:'"+p.id+"', from:'"+p.from+"', to:'"+p.to+"', lon:"+p.lon+", lat:"+p.lat+", label:'"+p.label+"' }";
-      }).join(',\n')+"\n  ];";
-      src=src.replace(/var PORTALS\s*=\s*\[[\s\S]*?\];/,portalsStr);
-      // 触发下载
-      var blob=new Blob([src],{type:'text/html;charset=utf-8'});
-      var a=document.createElement('a');
-      a.href=URL.createObjectURL(blob);
-      a.download='ysuites-vr.html';
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      URL.revokeObjectURL(a.href);
-      btn.textContent='✓ 已下载'; btn.style.color='#00BAB3';
-      setTimeout(function(){btn.textContent='⬇ 离线版';btn.style.color='';btn.disabled=false;},2000);
-    }).catch(function(e){
-      btn.textContent='❌ 失败'; btn.disabled=false;
-      setTimeout(function(){btn.textContent='⬇ 离线版';},2000);
-    });
-  });
-
-  calibBtn.addEventListener('click',function(){
-    calibMode=!calibMode;
-    calibBtn.classList.toggle('active',calibMode);
-    calibPanel.classList.toggle('show',calibMode);
-    coordBadge.classList.toggle('show',calibMode);
-    document.getElementById('c').classList.toggle('calib-mode',calibMode);
-    if(calibMode){
-      autoSpin=false;
-      buildCalibRows();
-      // 绑定"复制全部坐标"按钮
+    var calibBtn=document.getElementById('calib-btn');
+    calibBtn.addEventListener('click',function(){
+      calibMode=!calibMode;
+      calibBtn.classList.toggle('active',calibMode);
+      document.getElementById('calib-panel').classList.toggle('show',calibMode);
+      document.getElementById('coord-badge').classList.toggle('show',calibMode);
+      document.getElementById('c').classList.toggle('calib-mode',calibMode);
+      if(calibMode){autoSpin=false; buildCalibRows();}
       var copyAll=document.getElementById('calib-copy-all');
-      if(copyAll) copyAll.onclick=function(){
+      copyAll.onclick=function(){
         var lines=PORTALS.map(function(p){
           return "  { id:'"+p.id+"', from:'"+p.from+"', to:'"+p.to+"', lon:"+p.lon+", lat:"+p.lat+", label:'"+p.label+"' }";
         });
-        var txt="PORTALS:\n"+lines.join("\n");
-        navigator.clipboard.writeText(txt).then(function(){
+        navigator.clipboard.writeText("portals:\n"+lines.join("\n")).then(function(){
           copyAll.textContent="✓ 已复制，粘贴给 Claude 即可";
           copyAll.style.background="#FFB400"; copyAll.style.color="#000";
           setTimeout(function(){copyAll.textContent="复制全部坐标 → 发给 Claude 永久保存";copyAll.style.background="";copyAll.style.color="";},2000);
         });
       };
+    });
+
+    // ── 离线下载 ──
+    function imgToDataUrl(url){
+      return fetch(url).then(function(r){return r.blob();}).then(function(blob){
+        return new Promise(function(resolve){var rd=new FileReader();rd.onload=function(){resolve(rd.result);};rd.readAsDataURL(blob);});
+      });
     }
-  });
+    document.getElementById('dl-btn').addEventListener('click',function(){
+      var btn=document.getElementById('dl-btn');
+      btn.textContent='⏳ 生成中...'; btn.disabled=true;
+      // 获取当前 HTML 源码 + 嵌入所有图片
+      var fetchImages=cfg.scenes.map(function(s){return imgToDataUrl(s.file).then(function(d){return{id:s.id,data:d};});});
+      Promise.all([fetch(window.location.href).then(function(r){return r.text();})].concat(fetchImages))
+        .then(function(results){
+          var src=results[0];
+          var imgMap={};
+          results.slice(1).forEach(function(item){imgMap[item.id]=item.data;});
+          // 把 JSON fetch 替换成内联 config
+          var inlineConfig=JSON.stringify(Object.assign({},cfg,{portals:PORTALS}));
+          src=src.replace(
+            /fetch\('rooms\/'\+roomId\+'\.json'\)[\s\S]*?\.then\(function\(cfg\)\{ initVR\(cfg\); \}\)[\s\S]*?\.catch[\s\S]*?\}\);/,
+            'initVR('+inlineConfig+');'
+          );
+          // 嵌入图片
+          cfg.scenes.forEach(function(s){
+            var escaped=s.file.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+            src=src.replace(new RegExp(escaped,'g'),imgMap[s.id]||s.file);
+          });
+          var blob=new Blob([src],{type:'text/html;charset=utf-8'});
+          var a=document.createElement('a');
+          a.href=URL.createObjectURL(blob);
+          a.download='ysuites-vr-'+roomId+'.html';
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          URL.revokeObjectURL(a.href);
+          btn.textContent='✓ 已下载'; btn.style.color='#00BAB3';
+          setTimeout(function(){btn.textContent='⬇ 离线版';btn.style.color='';btn.disabled=false;},2000);
+        }).catch(function(){btn.textContent='❌ 失败';btn.disabled=false;setTimeout(function(){btn.textContent='⬇ 离线版';},2000);});
+    });
 
-  // ── 标记模式 ──
-  var addBtn=document.getElementById('add-btn');
-  addBtn.addEventListener('click',function(){
-    if(calibMode) return; // disable in calib mode
-    addMode=!addMode;
-    addBtn.classList.toggle('active',addMode);
-    document.getElementById('add-label').textContent=addMode?'点击画面放置':'添加标记';
-    document.getElementById('c').className=addMode?'add-mode':'';
-  });
-  document.getElementById('c').addEventListener('click',function(e){
-    if(!addMode)return;
-    var ll=clickLL(e.clientX,e.clientY);
-    pendingHS={lon:ll.lon,lat:ll.lat,scene:currentScene};editingId=null;
-    document.getElementById('mtitle').textContent='添加标记（'+SCENES[currentScene].name+'）';
-    document.getElementById('m-title').value='';document.getElementById('m-desc').value='';
-    document.getElementById('modal-bg').classList.add('show');
-  });
-  document.getElementById('msave').addEventListener('click',function(){
-    var title=document.getElementById('m-title').value.trim(),desc=document.getElementById('m-desc').value.trim();
-    if(!title){document.getElementById('m-title').focus();return;}
-    if(editingId!==null){var hs=null;Object.values(sceneHS).forEach(function(a){a.forEach(function(h){if(h.id===editingId)hs=h;});});if(hs){hs.title=title;hs.desc=desc;updCard(hs.el,hs);}}
-    else if(pendingHS){var hs={id:++hsCounter,lon:pendingHS.lon,lat:pendingHS.lat,title:title,desc:desc};sceneHS[pendingHS.scene].push(hs);if(pendingHS.scene===currentScene)createHSEl(hs);}
-    document.getElementById('modal-bg').classList.remove('show');pendingHS=null;editingId=null;
-    addMode=false;addBtn.classList.remove('active');document.getElementById('add-label').textContent='添加标记';document.getElementById('c').className='';
-  });
-  document.getElementById('mcancel').addEventListener('click',function(){document.getElementById('modal-bg').classList.remove('show');pendingHS=null;editingId=null;});
+    // ── 标记模式 ──
+    var addBtn=document.getElementById('add-btn');
+    addBtn.addEventListener('click',function(){
+      if(calibMode)return;
+      addMode=!addMode; addBtn.classList.toggle('active',addMode);
+      document.getElementById('add-label').textContent=addMode?'点击画面放置':'添加标记';
+      document.getElementById('c').className=addMode?'add-mode':'';
+    });
+    document.getElementById('c').addEventListener('click',function(e){
+      if(!addMode)return;
+      var ll=clickLL(e.clientX,e.clientY);
+      pendingHS={lon:ll.lon,lat:ll.lat,scene:currentScene}; editingId=null;
+      document.getElementById('mtitle').textContent='添加标记（'+SCENES[currentScene].name+'）';
+      document.getElementById('m-title').value=''; document.getElementById('m-desc').value='';
+      document.getElementById('modal-bg').classList.add('show');
+    });
+    document.getElementById('msave').addEventListener('click',function(){
+      var title=document.getElementById('m-title').value.trim(),desc=document.getElementById('m-desc').value.trim();
+      if(!title){document.getElementById('m-title').focus();return;}
+      if(editingId!==null){var hs=null;Object.values(sceneHS).forEach(function(a){a.forEach(function(h){if(h.id===editingId)hs=h;});});if(hs){hs.title=title;hs.desc=desc;updCard(hs.el,hs);}}
+      else if(pendingHS){var hs={id:++hsCounter,lon:pendingHS.lon,lat:pendingHS.lat,title:title,desc:desc};sceneHS[pendingHS.scene].push(hs);if(pendingHS.scene===currentScene)createHSEl(hs);}
+      document.getElementById('modal-bg').classList.remove('show'); pendingHS=null; editingId=null;
+      addMode=false; addBtn.classList.remove('active'); document.getElementById('add-label').textContent='添加标记'; document.getElementById('c').className='';
+    });
+    document.getElementById('mcancel').addEventListener('click',function(){document.getElementById('modal-bg').classList.remove('show');pendingHS=null;editingId=null;});
 
-  // ── 交互 ──
-  var cv=document.getElementById('c');
-  cv.addEventListener('mousedown',function(e){if(addMode)return;isDrag=true;autoSpin=false;lastX=e.clientX;lastY=e.clientY;if(!calibMode)cv.classList.add('dragging');});
-  window.addEventListener('mouseup',function(){isDrag=false;if(!addMode&&!calibMode)cv.classList.remove('dragging');});
-  window.addEventListener('mousemove',function(e){if(!isDrag||addMode)return;lon-=(e.clientX-lastX)*0.15;lat=Math.max(-85,Math.min(85,lat+(e.clientY-lastY)*0.15));lastX=e.clientX;lastY=e.clientY;});
-  cv.addEventListener('wheel',function(e){setFov(fov+e.deltaY*0.03);e.preventDefault();},{passive:false});
-  var lD=0,lTX=0,lTY=0;
-  cv.addEventListener('touchstart',function(e){if(addMode)return;autoSpin=false;if(e.touches.length===1){lTX=e.touches[0].clientX;lTY=e.touches[0].clientY;}if(e.touches.length===2){var dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;lD=Math.sqrt(dx*dx+dy*dy);}e.preventDefault();},{passive:false});
-  cv.addEventListener('touchmove',function(e){if(addMode)return;if(e.touches.length===1){lon-=(e.touches[0].clientX-lTX)*0.15;lat=Math.max(-85,Math.min(85,lat+(e.touches[0].clientY-lTY)*0.15));lTX=e.touches[0].clientX;lTY=e.touches[0].clientY;}if(e.touches.length===2){var dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;var d=Math.sqrt(dx*dx+dy*dy);setFov(fov-(d-lD)*0.1);lD=d;}e.preventDefault();},{passive:false});
-  document.getElementById('bL').onclick=function(){lon-=15;autoSpin=false;};
-  document.getElementById('bR').onclick=function(){lon+=15;autoSpin=false;};
-  document.getElementById('bU').onclick=function(){lat=Math.max(-85,lat-10);autoSpin=false;};
-  document.getElementById('bD').onclick=function(){lat=Math.min(85,lat+10);autoSpin=false;};
-  document.getElementById('bZI').onclick=function(){setFov(fov-5);};
-  document.getElementById('bZO').onclick=function(){setFov(fov+5);};
-  document.getElementById('bFS').onclick=function(){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();};
-  window.addEventListener('resize',function(){renderer.setSize(window.innerWidth,window.innerHeight);camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();});
-  setTimeout(function(){document.getElementById('tip').style.opacity='0';},4000);
+    // ── 交互控制 ──
+    var cv=document.getElementById('c');
+    cv.addEventListener('mousedown',function(e){if(addMode)return;isDrag=true;autoSpin=false;lastX=e.clientX;lastY=e.clientY;if(!calibMode)cv.classList.add('dragging');});
+    window.addEventListener('mouseup',function(){isDrag=false;if(!addMode&&!calibMode)cv.classList.remove('dragging');});
+    window.addEventListener('mousemove',function(e){if(!isDrag||addMode)return;lon-=(e.clientX-lastX)*0.15;lat=Math.max(-85,Math.min(85,lat+(e.clientY-lastY)*0.15));lastX=e.clientX;lastY=e.clientY;});
+    cv.addEventListener('wheel',function(e){setFov(fov+e.deltaY*0.03);e.preventDefault();},{passive:false});
+    var lD=0,lTX=0,lTY=0;
+    cv.addEventListener('touchstart',function(e){if(addMode)return;autoSpin=false;if(e.touches.length===1){lTX=e.touches[0].clientX;lTY=e.touches[0].clientY;}if(e.touches.length===2){var dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;lD=Math.sqrt(dx*dx+dy*dy);}e.preventDefault();},{passive:false});
+    cv.addEventListener('touchmove',function(e){if(addMode)return;if(e.touches.length===1){lon-=(e.touches[0].clientX-lTX)*0.15;lat=Math.max(-85,Math.min(85,lat+(e.touches[0].clientY-lTY)*0.15));lTX=e.touches[0].clientX;lTY=e.touches[0].clientY;}if(e.touches.length===2){var dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;var d=Math.sqrt(dx*dx+dy*dy);setFov(fov-(d-lD)*0.1);lD=d;}e.preventDefault();},{passive:false});
+    document.getElementById('bL').onclick=function(){lon-=15;autoSpin=false;};
+    document.getElementById('bR').onclick=function(){lon+=15;autoSpin=false;};
+    document.getElementById('bU').onclick=function(){lat=Math.max(-85,lat-10);autoSpin=false;};
+    document.getElementById('bD').onclick=function(){lat=Math.min(85,lat+10);autoSpin=false;};
+    document.getElementById('bZI').onclick=function(){setFov(fov-5);};
+    document.getElementById('bZO').onclick=function(){setFov(fov+5);};
+    document.getElementById('bFS').onclick=function(){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();};
+    window.addEventListener('resize',function(){renderer.setSize(window.innerWidth,window.innerHeight);camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();});
+    setTimeout(function(){document.getElementById('tip').style.opacity='0';},4000);
 
-  function animate(){
-    requestAnimationFrame(animate);
-    if(autoSpin&&!isDrag)lon+=0.025;
-    camera.lookAt(getLookDir());
-    renderer.render(scene3,camera);
-    updateHotspots(); updatePortals();
-    // 校准模式：实时坐标显示
-    if(calibMode){
-      var lo=fmtLL(lon), la=fmtLL(lat);
-      coordBadge.textContent='lon: '+lo+'°  lat: '+la+'°';
+    document.getElementById('sname').textContent=SCENES[firstScene].name;
+
+    function animate(){
+      requestAnimationFrame(animate);
+      if(autoSpin&&!isDrag)lon+=0.025;
+      camera.lookAt(getLookDir());
+      renderer.render(scene3,camera);
+      updateHotspots(); updatePortals();
+      if(calibMode){
+        var lo=fmtLL(lon),la=fmtLL(lat);
+        document.getElementById('coord-badge').textContent='lon: '+lo+'°  lat: '+la+'°';
+      }
     }
+    animate();
   }
-  animate();
 })();
 </script>
 </body>
