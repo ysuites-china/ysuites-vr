@@ -9,9 +9,9 @@
     { "id": "bathroom", "file": "img/8f-studio-grand-e/bathroom.webp", "name": "卫生间" }
   ],
   "portals": [
-    { "id": "p1", "from": "living",   "to": "bathroom", "lon": -45, "lat": 0, "label": "进入卫生间" },
-    { "id": "p2", "from": "bathroom", "to": "living",   "lon": 0,   "lat": 0, "label": "返回客厅" },
-    { "id": "p3", "from": "living",   "to": "bedroom",  "lon": 45,  "lat": 0, "label": "进入卧室" },
-    { "id": "p4", "from": "bedroom",  "to": "living",   "lon": 0,   "lat": 0, "label": "返回客厅" }
+    { "id": "p1", "from": "living",   "to": "bathroom", "lon": -306.8, "lat": -2.9, "label": "进入卫生间" },
+    { "id": "p2", "from": "bathroom", "to": "living",   "lon": -41.8,  "lat": -3.5, "label": "返回客厅" },
+    { "id": "p3", "from": "living",   "to": "bedroom",  "lon": -133.4, "lat": -4.4, "label": "进入卧室" },
+    { "id": "p4", "from": "bedroom",  "to": "living",   "lon": 32.7,   "lat": -18,  "label": "返回客厅" }
   ]
 }
