@@ -10,11 +10,11 @@
     { "id": "厕所",  "file": "img/15f-studio-deluxe-e/厕所.webp",  "name": "卫生间" }
   ],
   "portals": [
-    { "id": "p1", "from": "入口", "to": "客厅",  "lon": -277.4, "lat": -6.2,  "label": "进入客厅" },
-    { "id": "p2", "from": "客厅", "to": "入口",  "lon": -61.3,  "lat": -11.7, "label": "返回入口" },
-    { "id": "p3", "from": "客厅", "to": "卧室",  "lon": 104,    "lat": -15.6, "label": "进入卧室" },
-    { "id": "p4", "from": "卧室", "to": "客厅",  "lon": -58.3,  "lat": -18.9, "label": "返回客厅" },
-    { "id": "p5", "from": "客厅", "to": "厕所",  "lon": 0,      "lat": 0,     "label": "进入卫生间" },
-    { "id": "p6", "from": "厕所", "to": "客厅",  "lon": -7,     "lat": -24.3, "label": "返回客厅" }
+    { "id": "p1", "from": "入口", "to": "客厅",  "lon": -277.4, "lat": -6.2,  "entryLon": 57.6,  "entryLat": -4.3,  "label": "进入客厅" },
+    { "id": "p2", "from": "客厅", "to": "入口",  "lon": -61.3,  "lat": -11.7, "entryLon": 99.6,  "entryLat": 0.9,   "label": "返回入口" },
+    { "id": "p3", "from": "客厅", "to": "卧室",  "lon": 104,    "lat": -15.6, "entryLon": 56.4,  "entryLat": -12.9, "label": "进入卧室" },
+    { "id": "p4", "from": "卧室", "to": "客厅",  "lon": -58.3,  "lat": -18.9, "entryLon": 66.5,  "entryLat": -6.9,  "label": "返回客厅" },
+    { "id": "p5", "from": "客厅", "to": "厕所",  "lon": 0,      "lat": 0,     "entryLon": 186.1, "entryLat": -6.1,  "label": "进入卫生间" },
+    { "id": "p6", "from": "厕所", "to": "客厅",  "lon": -7,     "lat": -24.3, "entryLon": 92.5,  "entryLat": -9.9,  "label": "返回客厅" }
   ]
 }
