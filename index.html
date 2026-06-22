@@ -198,7 +198,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     // 从 localStorage 恢复校准坐标
     try{
       var saved=localStorage.getItem('ysuites-portals-'+roomId);
-      if(saved){ var sp=JSON.parse(saved); PORTALS.forEach(function(p){ var f=sp.find(function(x){return x.id===p.id;}); if(f){p.lon=f.lon;p.lat=f.lat;} }); }
+      if(saved){ var sp=JSON.parse(saved); PORTALS.forEach(function(p){ var f=sp.find(function(x){return x.id===p.id;}); if(f){p.lon=f.lon;p.lat=f.lat;if(f.entryLon!==undefined){p.entryLon=f.entryLon;p.entryLat=f.entryLat;}} }); }
     }catch(e){}
 
     var renderer=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});
@@ -321,27 +321,64 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     function buildCalibRows(){
       var container=document.getElementById('calib-rows'); container.innerHTML='';
       var portalsHere=PORTALS.filter(function(p){return p.from===currentScene;});
-      if(!portalsHere.length){container.innerHTML='<p style="color:rgba(255,255,255,0.35);font-size:11px;padding:6px 0">当前场景没有传送门</p>';return;}
-      portalsHere.forEach(function(p){
-        var row=document.createElement('div'); row.className='calib-row';
-        row.innerHTML='<span class="calib-name">'+p.label+'</span><span class="calib-coords" id="cc-'+p.id+'">'+fmtLL(p.lon)+'° / '+fmtLL(p.lat)+'°</span><button class="calib-set-btn" id="cset-'+p.id+'">设为当前</button><button class="calib-copy-btn" id="ccopy-'+p.id+'">复制</button>';
-        container.appendChild(row);
-        document.getElementById('cset-'+p.id).addEventListener('click',function(){
-          p.lon=fmtLL(lon); p.lat=fmtLL(lat);
-          document.getElementById('cc-'+p.id).textContent=p.lon+'° / '+p.lat+'°';
-          try{localStorage.setItem('ysuites-portals-'+roomId,JSON.stringify(PORTALS.map(function(q){return{id:q.id,lon:q.lon,lat:q.lat};})));}catch(e){}
-          var btn=document.getElementById('cset-'+p.id);
-          btn.textContent='✓ 已设置'; btn.style.background='#00BAB3'; btn.style.color='#000';
-          setTimeout(function(){btn.textContent='设为当前';btn.style.background='';btn.style.color='';},1200);
-        });
-        document.getElementById('ccopy-'+p.id).addEventListener('click',function(){
-          var txt="{ id:'"+p.id+"', from:'"+p.from+"', to:'"+p.to+"', lon:"+p.lon+", lat:"+p.lat+", label:'"+p.label+"' }";
-          navigator.clipboard.writeText(txt).then(function(){
-            var btn=document.getElementById('ccopy-'+p.id); btn.textContent='✓'; btn.style.color='#00BAB3';
-            setTimeout(function(){btn.textContent='复制';btn.style.color='';},1500);
+      var portalsIncoming=PORTALS.filter(function(p){return p.to===currentScene;});
+      if(!portalsHere.length&&!portalsIncoming.length){
+        container.innerHTML='<p style="color:rgba(255,255,255,0.35);font-size:11px;padding:6px 0">当前场景没有传送门</p>';return;
+      }
+      if(portalsHere.length){
+        var h1=document.createElement('p');
+        h1.style.cssText='color:rgba(255,255,255,0.35);font-size:10px;margin:4px 0 6px;text-transform:uppercase;letter-spacing:1px';
+        h1.textContent='传送门位置'; container.appendChild(h1);
+        portalsHere.forEach(function(p){
+          var row=document.createElement('div'); row.className='calib-row';
+          row.innerHTML='<span class="calib-name">'+p.label+'</span>'
+            +'<span class="calib-coords" id="cc-'+p.id+'">'+fmtLL(p.lon)+'° / '+fmtLL(p.lat)+'°</span>'
+            +'<button class="calib-set-btn" id="cset-'+p.id+'">设为当前</button>'
+            +'<button class="calib-copy-btn" id="ccopy-'+p.id+'">复制</button>';
+          container.appendChild(row);
+          document.getElementById('cset-'+p.id).addEventListener('click',function(){
+            p.lon=fmtLL(lon); p.lat=fmtLL(lat);
+            document.getElementById('cc-'+p.id).textContent=p.lon+'° / '+p.lat+'°';
+            try{localStorage.setItem('ysuites-portals-'+roomId,JSON.stringify(PORTALS.map(function(q){return{id:q.id,lon:q.lon,lat:q.lat,entryLon:q.entryLon,entryLat:q.entryLat};})));}catch(e){}
+            var btn=document.getElementById('cset-'+p.id);
+            btn.textContent='✓ 已设置'; btn.style.background='#00BAB3'; btn.style.color='#fff';
+            setTimeout(function(){btn.textContent='设为当前';btn.style.background='';btn.style.color='';},1200);
+          });
+          document.getElementById('ccopy-'+p.id).addEventListener('click',function(){
+            var entry=p.entryLon!==undefined?', entryLon:'+p.entryLon+', entryLat:'+p.entryLat:'';
+            var txt="{ id:'"+p.id+"', from:'"+p.from+"', to:'"+p.to+"', lon:"+p.lon+", lat:"+p.lat+entry+", label:'"+p.label+"' }";
+            navigator.clipboard.writeText(txt).then(function(){
+              var btn=document.getElementById('ccopy-'+p.id); btn.textContent='✓'; btn.style.color='#00BAB3';
+              setTimeout(function(){btn.textContent='复制';btn.style.color='';},1500);
+            });
           });
         });
-      });
+      }
+      if(portalsIncoming.length){
+        var h2=document.createElement('p');
+        h2.style.cssText='color:rgba(255,255,255,0.35);font-size:10px;margin:12px 0 4px;text-transform:uppercase;letter-spacing:1px';
+        h2.textContent='进入此场景的初始视角'; container.appendChild(h2);
+        var hint=document.createElement('p');
+        hint.style.cssText='color:rgba(255,255,255,0.25);font-size:10px;margin-bottom:8px;line-height:1.5';
+        hint.textContent='转到你希望用户进来时看到的方向，点设为入场视角'; container.appendChild(hint);
+        portalsIncoming.forEach(function(p){
+          var eLon=p.entryLon!==undefined?p.entryLon+' °':'-';
+          var eLat=p.entryLat!==undefined?p.entryLat+' °':'-';
+          var row=document.createElement('div'); row.className='calib-row';
+          row.innerHTML='<span class="calib-name" style="color:rgba(255,255,255,0.5)">从「'+p.from+'」进入</span>'
+            +'<span class="calib-coords" id="ec-'+p.id+'">'+eLon+' / '+eLat+'</span>'
+            +'<button class="calib-set-btn" id="eset-'+p.id+'">设为入场视角</button>';
+          container.appendChild(row);
+          document.getElementById('eset-'+p.id).addEventListener('click',function(){
+            p.entryLon=fmtLL(lon); p.entryLat=fmtLL(lat);
+            document.getElementById('ec-'+p.id).textContent=p.entryLon+' ° / '+p.entryLat+' °';
+            try{localStorage.setItem('ysuites-portals-'+roomId,JSON.stringify(PORTALS.map(function(q){return{id:q.id,lon:q.lon,lat:q.lat,entryLon:q.entryLon,entryLat:q.entryLat};})));}catch(e){}
+            var btn=document.getElementById('eset-'+p.id);
+            btn.textContent='✓ 已设置'; btn.style.background='#00BAB3'; btn.style.color='#fff';
+            setTimeout(function(){btn.textContent='设为入场视角';btn.style.background='';btn.style.color='';},1200);
+          });
+        });
+      }
     }
 
     var calibBtn=document.getElementById('calib-btn');
@@ -355,7 +392,8 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
       var copyAll=document.getElementById('calib-copy-all');
       copyAll.onclick=function(){
         var lines=PORTALS.map(function(p){
-          return "  { id:'"+p.id+"', from:'"+p.from+"', to:'"+p.to+"', lon:"+p.lon+", lat:"+p.lat+", label:'"+p.label+"' }";
+          var entry=p.entryLon!==undefined?', entryLon:'+p.entryLon+', entryLat:'+p.entryLat:'';
+          return "  { id:'"+p.id+"', from:'"+p.from+"', to:'"+p.to+"', lon:"+p.lon+", lat:"+p.lat+entry+", label:'"+p.label+"' }";
         });
         navigator.clipboard.writeText("portals:\n"+lines.join("\n")).then(function(){
           copyAll.textContent="✓ 已复制，粘贴给 Claude 即可";
