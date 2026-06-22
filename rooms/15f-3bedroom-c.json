@@ -1,0 +1,32 @@
+{
+  "title": "Y Suites · 3 Bedroom",
+  "brand": "Y SUITES",
+  "unit": "3 Bedroom · 15/F Unit C",
+  "defaultScene": "入口走廊",
+  "scenes": [
+    { "id": "入口走廊", "file": "img/15f-3bedroom-c/入口走廊.webp", "name": "入口走廊" },
+    { "id": "厨房走廊", "file": "img/15f-3bedroom-c/厨房走廊.webp", "name": "厨房走廊" },
+    { "id": "厨房",     "file": "img/15f-3bedroom-c/厨房.webp",     "name": "厨房" },
+    { "id": "更多房间", "file": "img/15f-3bedroom-c/更多房间.webp", "name": "更多房间" },
+    { "id": "01房间",   "file": "img/15f-3bedroom-c/01房间.webp",   "name": "卧室1" },
+    { "id": "2房间",    "file": "img/15f-3bedroom-c/2房间.webp",    "name": "卧室2" },
+    { "id": "3房间",    "file": "img/15f-3bedroom-c/3房间.webp",    "name": "卧室3" },
+    { "id": "厕所",     "file": "img/15f-3bedroom-c/厕所.webp",     "name": "卫生间" }
+  ],
+  "portals": [
+    { "id": "p1",  "from": "入口走廊", "to": "厨房走廊", "lon": -120, "lat": 0, "label": "厨房" },
+    { "id": "p2",  "from": "厨房走廊", "to": "入口走廊", "lon": 180,  "lat": 0, "label": "返回入口" },
+    { "id": "p3",  "from": "厨房走廊", "to": "厨房",     "lon": 0,    "lat": 0, "label": "进入厨房" },
+    { "id": "p4",  "from": "厨房",     "to": "厨房走廊", "lon": 0,    "lat": 0, "label": "返回" },
+    { "id": "p5",  "from": "入口走廊", "to": "01房间",   "lon": 0,    "lat": 0, "label": "卧室1" },
+    { "id": "p6",  "from": "01房间",   "to": "入口走廊", "lon": 0,    "lat": 0, "label": "返回入口" },
+    { "id": "p7",  "from": "入口走廊", "to": "更多房间", "lon": 120,  "lat": 0, "label": "更多房间" },
+    { "id": "p8",  "from": "更多房间", "to": "入口走廊", "lon": 180,  "lat": 0, "label": "返回入口" },
+    { "id": "p9",  "from": "更多房间", "to": "2房间",    "lon": -90,  "lat": 0, "label": "卧室2" },
+    { "id": "p10", "from": "2房间",    "to": "更多房间", "lon": 0,    "lat": 0, "label": "返回" },
+    { "id": "p11", "from": "更多房间", "to": "3房间",    "lon": 90,   "lat": 0, "label": "卧室3" },
+    { "id": "p12", "from": "3房间",    "to": "更多房间", "lon": 0,    "lat": 0, "label": "返回" },
+    { "id": "p13", "from": "更多房间", "to": "厕所",     "lon": 0,    "lat": 0, "label": "卫生间" },
+    { "id": "p14", "from": "厕所",     "to": "更多房间", "lon": 0,    "lat": 0, "label": "返回" }
+  ]
+}
