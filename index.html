@@ -257,13 +257,15 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     }
     function clickLL(ex,ey){var m=new THREE.Vector2((ex/window.innerWidth)*2-1,-(ey/window.innerHeight)*2+1);var rc=new THREE.Raycaster();rc.setFromCamera(m,camera);var d=rc.ray.direction.clone().normalize();return{lon:THREE.MathUtils.radToDeg(Math.atan2(d.x*500,d.z*500)),lat:THREE.MathUtils.radToDeg(Math.asin(d.y))};}
 
-    function switchScene(name){
+    function switchScene(name,entryLon,entryLat){
       var tr=document.getElementById('transition');
       tr.style.pointerEvents='all'; tr.style.opacity='1';
       setTimeout(function(){
         currentScene=name; mat.map=texCache[name]; mat.needsUpdate=true;
         document.getElementById('sname').textContent=SCENES[name].name;
-        autoSpin=false; lon=0; lat=0;
+        autoSpin=false;
+        lon=(entryLon!==undefined)?entryLon:0;
+        lat=(entryLat!==undefined)?entryLat:0;
         Object.values(portalEls).forEach(function(e){if(e.parentNode)e.parentNode.removeChild(e);}); portalEls={};
         Object.keys(sceneHS).forEach(function(s){sceneHS[s].forEach(function(h){if(h.el&&h.el.parentNode)h.el.parentNode.removeChild(h.el);});});
         activeCard=null;
@@ -277,7 +279,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
       PORTALS.filter(function(p){return p.from===currentScene;}).forEach(function(p){
         var el=document.createElement('div'); el.className='portal'; el.id='portal-'+p.id;
         el.innerHTML='<div class="portal-ring"><span class="arr">→</span><span class="plbl">'+p.label+'</span></div>';
-        el.addEventListener('click',function(e){e.stopPropagation();if(!calibMode)switchScene(p.to);});
+        el.addEventListener('click',function(e){e.stopPropagation();if(!calibMode)switchScene(p.to,p.entryLon,p.entryLat);});
         document.body.appendChild(el); portalEls[p.id]=el;
       });
     }
