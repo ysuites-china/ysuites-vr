@@ -24,22 +24,45 @@
     {
       "id": "01房间",
       "file": "img/15f-3bedroom-b/01房间.webp",
-      "name": "卧室1"
+      "name": "卧室1",
+      "highlights": [
+        "Queen size 床",
+        "内嵌衣柜",
+        "独立空调",
+        "城市景观"
+      ]
     },
     {
       "id": "02房间",
       "file": "img/15f-3bedroom-b/02房间.webp",
-      "name": "卧室2"
+      "name": "卧室2",
+      "highlights": [
+        "Queen size 床",
+        "内嵌衣柜",
+        "独立空调",
+        "城市景观"
+      ]
     },
     {
       "id": "03房间",
       "file": "img/15f-3bedroom-b/03房间.webp",
-      "name": "卧室3"
+      "name": "卧室3",
+      "highlights": [
+        "Queen size 床",
+        "内嵌衣柜",
+        "独立空调",
+        "城市景观"
+      ]
     },
     {
       "id": "卫生间",
       "file": "img/15f-3bedroom-b/卫生间.webp",
-      "name": "卫生间"
+      "name": "卫生间",
+      "highlights": [
+        "独立淋浴间",
+        "浴室镜柜",
+        "24小时热水"
+      ]
     }
   ],
   "portals": [

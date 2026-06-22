@@ -17,12 +17,23 @@
     {
       "id": "卧室",
       "file": "img/15f-studio-deluxe-e/卧室.webp",
-      "name": "卧室"
+      "name": "卧室",
+      "highlights": [
+        "Queen size 床",
+        "内嵌衣柜",
+        "独立空调",
+        "城市景观"
+      ]
     },
     {
       "id": "厕所",
       "file": "img/15f-studio-deluxe-e/厕所.webp",
-      "name": "卫生间"
+      "name": "卫生间",
+      "highlights": [
+        "独立淋浴间",
+        "浴室镜柜",
+        "24小时热水"
+      ]
     }
   ],
   "portals": [
