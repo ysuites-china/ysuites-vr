@@ -102,6 +102,14 @@
       "lon": 90,
       "lat": 0,
       "label": "更多房间"
+    },
+    {
+      "id": "p10",
+      "from": "hallway2",
+      "to": "room01",
+      "lon": -90,
+      "lat": 0,
+      "label": "卧室1"
     }
   ]
 }
