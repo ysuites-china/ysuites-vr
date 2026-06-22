@@ -3,113 +3,25 @@
   "brand": "Y SUITES",
   "unit": "2 Bedroom · 15/F Unit D",
   "defaultScene": "hallway1",
+  "startLon": -143.5,
+  "startLat": -8.5,
   "scenes": [
-    {
-      "id": "hallway1",
-      "file": "img/15f-2bedroom-d/hallway1.webp",
-      "name": "入口"
-    },
-    {
-      "id": "hallway2",
-      "file": "img/15f-2bedroom-d/hallway2.webp",
-      "name": "更多房间"
-    },
-    {
-      "id": "room01",
-      "file": "img/15f-2bedroom-d/room01.webp",
-      "name": "卧室1"
-    },
-    {
-      "id": "room02",
-      "file": "img/15f-2bedroom-d/room02.webp",
-      "name": "卧室2"
-    },
-    {
-      "id": "bathroom",
-      "file": "img/15f-2bedroom-d/bathroom.webp",
-      "name": "卫生间"
-    }
+    { "id": "hallway1", "file": "img/15f-2bedroom-d/hallway1.webp", "name": "入口" },
+    { "id": "hallway2", "file": "img/15f-2bedroom-d/hallway2.webp", "name": "更多房间" },
+    { "id": "room01",   "file": "img/15f-2bedroom-d/room01.webp",   "name": "卧室1" },
+    { "id": "room02",   "file": "img/15f-2bedroom-d/room02.webp",   "name": "卧室2" },
+    { "id": "bathroom", "file": "img/15f-2bedroom-d/bathroom.webp", "name": "卫生间" }
   ],
   "portals": [
-    {
-      "id": "p1",
-      "from": "hallway1",
-      "to": "bathroom",
-      "lon": -120,
-      "lat": 0,
-      "label": "卫生间"
-    },
-    {
-      "id": "p2",
-      "from": "bathroom",
-      "to": "hallway1",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回入口"
-    },
-    {
-      "id": "p3",
-      "from": "hallway1",
-      "to": "room01",
-      "lon": 0,
-      "lat": 0,
-      "label": "卧室1"
-    },
-    {
-      "id": "p4",
-      "from": "room01",
-      "to": "hallway1",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回入口"
-    },
-    {
-      "id": "p5",
-      "from": "hallway1",
-      "to": "hallway2",
-      "lon": 120,
-      "lat": 0,
-      "label": "更多房间"
-    },
-    {
-      "id": "p6",
-      "from": "hallway2",
-      "to": "hallway1",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回入口"
-    },
-    {
-      "id": "p7",
-      "from": "hallway2",
-      "to": "room02",
-      "lon": 90,
-      "lat": 0,
-      "label": "卧室2"
-    },
-    {
-      "id": "p8",
-      "from": "room02",
-      "to": "hallway2",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回"
-    },
-    {
-      "id": "p9",
-      "from": "room01",
-      "to": "hallway2",
-      "lon": 90,
-      "lat": 0,
-      "label": "更多房间"
-    },
-    {
-      "id": "p10",
-      "from": "hallway2",
-      "to": "room01",
-      "lon": -90,
-      "lat": 0,
-      "label": "卧室1"
-    }
+    { "id": "p1",  "from": "hallway1", "to": "bathroom", "lon": -39.3,  "lat": -9.6, "entryLon": -120.5, "entryLat": -9,    "label": "卫生间" },
+    { "id": "p2",  "from": "bathroom", "to": "hallway1", "lon": -205.7, "lat": -5.4,                                         "label": "返回入口" },
+    { "id": "p3",  "from": "hallway1", "to": "room01",   "lon": -144,   "lat": -7.2, "entryLon": -103.2, "entryLat": -6.4,  "label": "卧室1" },
+    { "id": "p4",  "from": "room01",   "to": "hallway1", "lon": 43.2,   "lat": -9.7,                                         "label": "返回入口" },
+    { "id": "p5",  "from": "hallway1", "to": "hallway2", "lon": 232.5,  "lat": -8.7, "entryLon": 303.9,  "entryLat": -3.4,  "label": "更多房间" },
+    { "id": "p6",  "from": "hallway2", "to": "hallway1", "lon": 71.9,   "lat": -7.6,                                         "label": "返回入口" },
+    { "id": "p7",  "from": "hallway2", "to": "room02",   "lon": -65.4,  "lat": -4.8, "entryLon": -114,   "entryLat": -6.7,  "label": "卧室2" },
+    { "id": "p8",  "from": "room02",   "to": "hallway2", "lon": -251.4, "lat": -7,   "entryLon": 331.1,  "entryLat": -7.5,  "label": "返回" },
+    { "id": "p9",  "from": "room01",   "to": "hallway2", "lon": 90,     "lat": 0,    "entryLon": 335.7,  "entryLat": -6.9,  "label": "更多房间" },
+    { "id": "p10", "from": "hallway2", "to": "room01",   "lon": -161.7, "lat": -6.4, "entryLon": -103.2, "entryLat": -6.4,  "label": "卧室1" }
   ]
 }
