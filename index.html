@@ -209,8 +209,6 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     var renderer=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth,window.innerHeight);
-    renderer.toneMapping=THREE.ReinhardToneMapping;
-    renderer.toneMappingExposure=1.35;
     var scene3=new THREE.Scene();
     var camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
     var geo=new THREE.SphereGeometry(500,60,40); geo.scale(-1,1,1);
@@ -227,7 +225,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
       if(texCache[id]){onDone(texCache[id]);return;}
       var img=new Image();
       img.crossOrigin='anonymous';
-      img.onload=function(){ var tex=new THREE.Texture(img); tex.wrapS=THREE.RepeatWrapping; tex.encoding=THREE.sRGBEncoding; tex.needsUpdate=true; texCache[id]=tex; onDone(tex); };
+      img.onload=function(){ var tex=new THREE.Texture(img); tex.wrapS=THREE.RepeatWrapping; tex.needsUpdate=true; texCache[id]=tex; onDone(tex); };
       img.onerror=function(){ document.getElementById('load-msg').textContent='加载失败，请刷新重试'; };
       img.src=SCENES[id].file;
     }
