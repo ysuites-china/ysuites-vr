@@ -4,201 +4,35 @@
   "unit": "3 Bedroom · 15/F Unit F",
   "defaultScene": "入口走廊",
   "scenes": [
-    {
-      "id": "入口走廊",
-      "file": "img/15f-3bedroom-f/入口走廊.webp",
-      "name": "入口走廊"
-    },
-    {
-      "id": "公共区餐厅",
-      "file": "img/15f-3bedroom-f/公共区餐厅.webp",
-      "name": "餐厅"
-    },
-    {
-      "id": "厨房",
-      "file": "img/15f-3bedroom-f/厨房.webp",
-      "name": "厨房"
-    },
-    {
-      "id": "长走廊",
-      "file": "img/15f-3bedroom-f/长走廊.webp",
-      "name": "走廊"
-    },
-    {
-      "id": "更多房间",
-      "file": "img/15f-3bedroom-f/房间走廊.webp",
-      "name": "更多房间"
-    },
-    {
-      "id": "1号房间",
-      "file": "img/15f-3bedroom-f/1号房间.webp",
-      "name": "卧室1"
-    },
-    {
-      "id": "2号房间",
-      "file": "img/15f-3bedroom-f/2号房间.webp",
-      "name": "卧室2"
-    },
-    {
-      "id": "3号房间",
-      "file": "img/15f-3bedroom-f/3号房间.webp",
-      "name": "卧室3"
-    },
-    {
-      "id": "卫生间1",
-      "file": "img/15f-3bedroom-f/卫生间1.webp",
-      "name": "卫生间1"
-    },
-    {
-      "id": "卫生间2",
-      "file": "img/15f-3bedroom-f/卫生间2.webp",
-      "name": "卫生间2"
-    }
+    { "id": "入口走廊",  "file": "img/15f-3bedroom-f/入口走廊.webp",  "name": "入口走廊" },
+    { "id": "公共区餐厅","file": "img/15f-3bedroom-f/公共区餐厅.webp","name": "餐厅" },
+    { "id": "厨房",     "file": "img/15f-3bedroom-f/厨房.webp",     "name": "厨房" },
+    { "id": "长走廊",   "file": "img/15f-3bedroom-f/长走廊.webp",   "name": "走廊" },
+    { "id": "房间区",   "file": "img/15f-3bedroom-f/房间走廊.webp", "name": "房间区" },
+    { "id": "1号房间",  "file": "img/15f-3bedroom-f/1号房间.webp",  "name": "卧室1" },
+    { "id": "2号房间",  "file": "img/15f-3bedroom-f/2号房间.webp",  "name": "卧室2" },
+    { "id": "3号房间",  "file": "img/15f-3bedroom-f/3号房间.webp",  "name": "卧室3" },
+    { "id": "卫生间1",  "file": "img/15f-3bedroom-f/卫生间1.webp",  "name": "卫生间1" },
+    { "id": "卫生间2",  "file": "img/15f-3bedroom-f/卫生间2.webp",  "name": "卫生间2" }
   ],
   "portals": [
-    {
-      "id": "p1",
-      "from": "入口走廊",
-      "to": "厨房",
-      "lon": -90,
-      "lat": 0,
-      "label": "进入厨房"
-    },
-    {
-      "id": "p2",
-      "from": "厨房",
-      "to": "入口走廊",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回入口"
-    },
-    {
-      "id": "p3",
-      "from": "入口走廊",
-      "to": "公共区餐厅",
-      "lon": 90,
-      "lat": 0,
-      "label": "进入餐厅"
-    },
-    {
-      "id": "p4",
-      "from": "公共区餐厅",
-      "to": "入口走廊",
-      "lon": 180,
-      "lat": 0,
-      "label": "返回入口"
-    },
-    {
-      "id": "p5",
-      "from": "公共区餐厅",
-      "to": "长走廊",
-      "lon": 0,
-      "lat": 0,
-      "label": "房间区"
-    },
-    {
-      "id": "p6",
-      "from": "长走廊",
-      "to": "公共区餐厅",
-      "lon": 180,
-      "lat": 0,
-      "label": "返回餐厅"
-    },
-    {
-      "id": "p7",
-      "from": "公共区餐厅",
-      "to": "卫生间1",
-      "lon": -90,
-      "lat": 0,
-      "label": "卫生间1"
-    },
-    {
-      "id": "p8",
-      "from": "卫生间1",
-      "to": "公共区餐厅",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回餐厅"
-    },
-    {
-      "id": "p9",
-      "from": "公共区餐厅",
-      "to": "卫生间2",
-      "lon": 90,
-      "lat": 0,
-      "label": "卫生间2"
-    },
-    {
-      "id": "p10",
-      "from": "卫生间2",
-      "to": "公共区餐厅",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回餐厅"
-    },
-    {
-      "id": "p11",
-      "from": "长走廊",
-      "to": "1号房间",
-      "lon": -90,
-      "lat": 0,
-      "label": "卧室1"
-    },
-    {
-      "id": "p12",
-      "from": "1号房间",
-      "to": "长走廊",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回走廊"
-    },
-    {
-      "id": "p13",
-      "from": "长走廊",
-      "to": "更多房间",
-      "lon": 0,
-      "lat": 0,
-      "label": "更多房间"
-    },
-    {
-      "id": "p14",
-      "from": "更多房间",
-      "to": "长走廊",
-      "lon": 180,
-      "lat": 0,
-      "label": "返回走廊"
-    },
-    {
-      "id": "p15",
-      "from": "更多房间",
-      "to": "2号房间",
-      "lon": -90,
-      "lat": 0,
-      "label": "卧室2"
-    },
-    {
-      "id": "p16",
-      "from": "2号房间",
-      "to": "更多房间",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回"
-    },
-    {
-      "id": "p17",
-      "from": "更多房间",
-      "to": "3号房间",
-      "lon": 90,
-      "lat": 0,
-      "label": "卧室3"
-    },
-    {
-      "id": "p18",
-      "from": "3号房间",
-      "to": "更多房间",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回"
-    }
+    { "id": "p1",  "from": "入口走廊",  "to": "厨房",     "lon": -90,  "lat": 0, "label": "进入厨房" },
+    { "id": "p2",  "from": "厨房",     "to": "入口走廊",  "lon": 0,    "lat": 0, "label": "返回入口" },
+    { "id": "p3",  "from": "入口走廊",  "to": "公共区餐厅","lon": 90,   "lat": 0, "label": "进入餐厅" },
+    { "id": "p4",  "from": "公共区餐厅","to": "入口走廊",  "lon": 180,  "lat": 0, "label": "返回入口" },
+    { "id": "p5",  "from": "公共区餐厅","to": "长走廊",    "lon": 0,    "lat": 0, "label": "进入走廊" },
+    { "id": "p6",  "from": "长走廊",   "to": "公共区餐厅","lon": 180,  "lat": 0, "label": "返回餐厅" },
+    { "id": "p7",  "from": "公共区餐厅","to": "卫生间1",   "lon": -90,  "lat": 0, "label": "卫生间1" },
+    { "id": "p8",  "from": "卫生间1",  "to": "公共区餐厅","lon": 0,    "lat": 0, "label": "返回餐厅" },
+    { "id": "p9",  "from": "公共区餐厅","to": "卫生间2",   "lon": 90,   "lat": 0, "label": "卫生间2" },
+    { "id": "p10", "from": "卫生间2",  "to": "公共区餐厅","lon": 0,    "lat": 0, "label": "返回餐厅" },
+    { "id": "p11", "from": "长走廊",   "to": "房间区",    "lon": 0,    "lat": 0, "label": "房间区" },
+    { "id": "p12", "from": "房间区",   "to": "长走廊",    "lon": 180,  "lat": 0, "label": "返回走廊" },
+    { "id": "p13", "from": "房间区",   "to": "1号房间",   "lon": -120, "lat": 0, "label": "卧室1" },
+    { "id": "p14", "from": "1号房间",  "to": "房间区",    "lon": 0,    "lat": 0, "label": "返回" },
+    { "id": "p15", "from": "房间区",   "to": "2号房间",   "lon": 0,    "lat": 0, "label": "卧室2" },
+    { "id": "p16", "from": "2号房间",  "to": "房间区",    "lon": 0,    "lat": 0, "label": "返回" },
+    { "id": "p17", "from": "房间区",   "to": "3号房间",   "lon": 120,  "lat": 0, "label": "卧室3" },
+    { "id": "p18", "from": "3号房间",  "to": "房间区",    "lon": 0,    "lat": 0, "label": "返回" }
   ]
 }
