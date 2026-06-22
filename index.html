@@ -277,10 +277,20 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
       },360);
     }
 
+    function portalEmoji(label){
+      if(/卧室|房间/.test(label))  return '🛏';
+      if(/卫生间|厕所|洗手间/.test(label)) return '🚿';
+      if(/餐厅|餐室/.test(label))  return '🍽';
+      if(/厨房/.test(label))        return '🍳';
+      if(/客厅/.test(label))        return '🛋';
+      if(/返回|入口/.test(label))   return '↩';
+      if(/走廊|房间区|其他/.test(label)) return '🚶';
+      return '👣';
+    }
     function renderPortals(){
       PORTALS.filter(function(p){return p.from===currentScene;}).forEach(function(p){
         var el=document.createElement('div'); el.className='portal'; el.id='portal-'+p.id;
-        el.innerHTML='<div class="portal-ring"><span class="arr">👣</span><span class="plbl">'+p.label+'</span></div>';
+        el.innerHTML='<div class="portal-ring"><span class="arr">'+portalEmoji(p.label)+'</span><span class="plbl">'+p.label+'</span></div>';
         el.addEventListener('click',function(e){e.stopPropagation();if(!calibMode)switchScene(p.to,p.entryLon,p.entryLat);});
         document.body.appendChild(el); portalEls[p.id]=el;
       });
