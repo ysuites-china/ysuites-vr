@@ -12,12 +12,23 @@
     {
       "id": "bedroom",
       "file": "img/8f-studio-grand-e/bedroom.webp",
-      "name": "卧室"
+      "name": "卧室",
+      "highlights": [
+        "Queen size 床",
+        "内嵌衣柜",
+        "独立空调",
+        "城市景观"
+      ]
     },
     {
       "id": "bathroom",
       "file": "img/8f-studio-grand-e/bathroom.webp",
-      "name": "卫生间"
+      "name": "卫生间",
+      "highlights": [
+        "独立淋浴间",
+        "浴室镜柜",
+        "24小时热水"
+      ]
     }
   ],
   "portals": [
