@@ -161,8 +161,8 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   var isEmbed = params.get('embed') === '1';
   var isCalib = params.get('calib') === '1';
 
+  document.getElementById('add-btn').style.display='none';
   if(isEmbed){
-    document.getElementById('add-btn').style.display='none';
     document.getElementById('calib-btn').style.display='none';
     document.getElementById('dl-btn').style.display='none';
   } else if(!isCalib){
