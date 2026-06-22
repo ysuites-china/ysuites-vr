@@ -215,7 +215,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     var mat=new THREE.MeshBasicMaterial();
     var mesh=new THREE.Mesh(geo,mat); scene3.add(mesh);
 
-    var lon=cfg.startLon||0,lat=cfg.startLat||0,fov=75,isDrag=false,lastX=0,lastY=0,autoSpin=true,addMode=false,calibMode=false;
+    var lon=cfg.startLon||0,lat=cfg.startLat||0,fov=100,isDrag=false,lastX=0,lastY=0,autoSpin=true,addMode=false,calibMode=false;
     var currentScene=firstScene, texCache={};
     var sceneHS={}; cfg.scenes.forEach(function(s){sceneHS[s.id]=[];});
     var hsCounter=0,activeCard=null,pendingHS=null,editingId=null;
