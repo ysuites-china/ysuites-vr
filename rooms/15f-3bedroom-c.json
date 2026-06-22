@@ -10,9 +10,12 @@
     { "id": "厨房走廊", "file": "img/15f-3bedroom-c/厨房走廊.webp", "name": "厨房走廊" },
     { "id": "厨房",     "file": "img/15f-3bedroom-c/厨房.webp",     "name": "厨房" },
     { "id": "更多房间", "file": "img/15f-3bedroom-c/更多房间.webp", "name": "更多房间" },
-    { "id": "01房间",   "file": "img/15f-3bedroom-c/01房间.webp",   "name": "卧室1" },
-    { "id": "2房间",    "file": "img/15f-3bedroom-c/2房间.webp",    "name": "卧室2" },
-    { "id": "3房间",    "file": "img/15f-3bedroom-c/3房间.webp",    "name": "卧室3" },
+    { "id": "01房间",   "file": "img/15f-3bedroom-c/01房间.webp",   "name": "卧室1",
+      "highlights": ["加大 Single Size 床 (100x200)", "衣柜", "学习桌", "独立空调"] },
+    { "id": "2房间",    "file": "img/15f-3bedroom-c/2房间.webp",    "name": "卧室2",
+      "highlights": ["加大 Single Size 床 (100x200)", "衣柜", "学习桌", "独立空调", "城市景观"] },
+    { "id": "3房间",    "file": "img/15f-3bedroom-c/3房间.webp",    "name": "卧室3",
+      "highlights": ["加大 Single Size 床 (100x200)", "衣柜", "学习桌", "独立空调", "城市景观"] },
     { "id": "厕所",     "file": "img/15f-3bedroom-c/厕所.webp",     "name": "卫生间" }
   ],
   "portals": [
