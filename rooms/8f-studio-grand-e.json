@@ -4,54 +4,14 @@
   "unit": "Studio Grand · 8/F Unit E",
   "defaultScene": "living",
   "scenes": [
-    {
-      "id": "living",
-      "file": "img/8f-studio-grand-e/living.webp",
-      "name": "客厅"
-    },
-    {
-      "id": "bedroom",
-      "file": "img/8f-studio-grand-e/bedroom.webp",
-      "name": "卧室"
-    },
-    {
-      "id": "bathroom",
-      "file": "img/8f-studio-grand-e/bathroom.webp",
-      "name": "卫生间"
-    }
+    { "id": "living",   "file": "img/8f-studio-grand-e/living.webp",   "name": "客厅" },
+    { "id": "bedroom",  "file": "img/8f-studio-grand-e/bedroom.webp",  "name": "卧室" },
+    { "id": "bathroom", "file": "img/8f-studio-grand-e/bathroom.webp", "name": "卫生间" }
   ],
   "portals": [
-    {
-      "id": "p1",
-      "from": "living",
-      "to": "bedroom",
-      "lon": 0,
-      "lat": 0,
-      "label": "进入卧室"
-    },
-    {
-      "id": "p2",
-      "from": "bedroom",
-      "to": "living",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回客厅"
-    },
-    {
-      "id": "p3",
-      "from": "bedroom",
-      "to": "bathroom",
-      "lon": 0,
-      "lat": 0,
-      "label": "进入卫生间"
-    },
-    {
-      "id": "p4",
-      "from": "bathroom",
-      "to": "bedroom",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回卧室"
-    }
+    { "id": "p1", "from": "living",   "to": "bathroom", "lon": 0, "lat": 0, "label": "进入卫生间" },
+    { "id": "p2", "from": "bathroom", "to": "living",   "lon": 0, "lat": 0, "label": "返回客厅" },
+    { "id": "p3", "from": "living",   "to": "bedroom",  "lon": 0, "lat": 0, "label": "进入卧室" },
+    { "id": "p4", "from": "bedroom",  "to": "living",   "lon": 0, "lat": 0, "label": "返回客厅" }
   ]
 }
