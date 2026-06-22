@@ -197,6 +197,8 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
 
     // 从 localStorage 恢复校准坐标
     try{
+      var savedStart=localStorage.getItem('ysuites-start-'+roomId);
+      if(savedStart){var ss=JSON.parse(savedStart);lon=ss.lon||lon;lat=ss.lat||lat;}
       var saved=localStorage.getItem('ysuites-portals-'+roomId);
       if(saved){ var sp=JSON.parse(saved); PORTALS.forEach(function(p){ var f=sp.find(function(x){return x.id===p.id;}); if(f){p.lon=f.lon;p.lat=f.lat;if(f.entryLon!==undefined){p.entryLon=f.entryLon;p.entryLat=f.entryLat;}} }); }
     }catch(e){}
@@ -210,7 +212,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     var mat=new THREE.MeshBasicMaterial();
     var mesh=new THREE.Mesh(geo,mat); scene3.add(mesh);
 
-    var lon=0,lat=0,fov=75,isDrag=false,lastX=0,lastY=0,autoSpin=true,addMode=false,calibMode=false;
+    var lon=cfg.startLon||0,lat=cfg.startLat||0,fov=75,isDrag=false,lastX=0,lastY=0,autoSpin=true,addMode=false,calibMode=false;
     var currentScene=firstScene, texCache={};
     var sceneHS={}; cfg.scenes.forEach(function(s){sceneHS[s.id]=[];});
     var hsCounter=0,activeCard=null,pendingHS=null,editingId=null;
@@ -320,6 +322,22 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     function fmtLL(l){return Math.round(l*10)/10;}
     function buildCalibRows(){
       var container=document.getElementById('calib-rows'); container.innerHTML='';
+      // Initial view button
+      var initRow=document.createElement('div');
+      initRow.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:8px 0 10px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:8px';
+      var initInfo=document.createElement('div');
+      initInfo.innerHTML='<div style="color:rgba(255,255,255,0.8);font-size:11px">初始视角</div><div style="color:rgba(255,255,255,0.3);font-size:10px;margin-top:2px" id="start-coords">lon: '+(cfg.startLon||0)+'° / lat: '+(cfg.startLat||0)+'°</div>';
+      var initBtn=document.createElement('button');
+      initBtn.className='calib-set-btn'; initBtn.textContent='设为初始视角';
+      initBtn.addEventListener('click',function(){
+        cfg.startLon=fmtLL(lon); cfg.startLat=fmtLL(lat);
+        document.getElementById('start-coords').textContent='lon: '+cfg.startLon+'° / lat: '+cfg.startLat+'°';
+        try{localStorage.setItem('ysuites-start-'+roomId,JSON.stringify({lon:cfg.startLon,lat:cfg.startLat}));}catch(e){}
+        initBtn.textContent='✓ 已设置'; initBtn.style.background='#00BAB3'; initBtn.style.color='#fff';
+        setTimeout(function(){initBtn.textContent='设为初始视角';initBtn.style.background='';initBtn.style.color='';},1200);
+      });
+      initRow.appendChild(initInfo); initRow.appendChild(initBtn);
+      container.appendChild(initRow);
       var portalsHere=PORTALS.filter(function(p){return p.from===currentScene;});
       var portalsIncoming=PORTALS.filter(function(p){return p.to===currentScene;});
       if(!portalsHere.length&&!portalsIncoming.length){
