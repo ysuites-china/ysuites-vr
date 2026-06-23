@@ -3,8 +3,8 @@
   "brand": "Y SUITES",
   "unit": "3 Bedroom · 15/F Unit B",
   "defaultScene": "入口",
-  "startLon": -141,
-  "startLat": -5.7,
+  "startLon": -147.5,
+  "startLat": -7,
   "scenes": [
     {
       "id": "入口",
@@ -70,8 +70,8 @@
       "id": "p1",
       "from": "入口",
       "to": "01房间",
-      "lon": -146.5,
-      "lat": -3,
+      "lon": -147.5,
+      "lat": -7,
       "entryLon": -162.9,
       "entryLat": -8.8,
       "label": "卧室1"
@@ -90,8 +90,8 @@
       "id": "p3",
       "from": "入口",
       "to": "走廊",
-      "lon": -155.3,
-      "lat": -5.1,
+      "lon": -157.4,
+      "lat": -4.8,
       "entryLon": 147.6,
       "entryLat": -4.5,
       "label": "其他房间"
@@ -110,10 +110,10 @@
       "id": "p5",
       "from": "走廊",
       "to": "02房间",
-      "lon": 143.1,
-      "lat": -6.9,
-      "entryLon": -134.7,
-      "entryLat": -6.7,
+      "lon": 125.7,
+      "lat": -8.8,
+      "entryLon": -169.1,
+      "entryLat": -11.2,
       "label": "卧室2"
     },
     {
@@ -130,8 +130,8 @@
       "id": "p7",
       "from": "走廊",
       "to": "走廊2",
-      "lon": 115.2,
-      "lat": -7,
+      "lon": 108.6,
+      "lat": -10.9,
       "entryLon": -286.2,
       "entryLat": -4.8,
       "label": "其他房间"
@@ -140,8 +140,8 @@
       "id": "p8",
       "from": "走廊2",
       "to": "走廊",
-      "lon": 245.7,
-      "lat": -12.3,
+      "lon": -47.1,
+      "lat": -7.4,
       "entryLon": -30.1,
       "entryLat": -0.3,
       "label": "返回"
@@ -150,18 +150,18 @@
       "id": "p9",
       "from": "走廊2",
       "to": "03房间",
-      "lon": 114.6,
-      "lat": -8.5,
-      "entryLon": -139.2,
-      "entryLat": -19.8,
+      "lon": -308.1,
+      "lat": -5.4,
+      "entryLon": -210,
+      "entryLat": -32,
       "label": "卧室3"
     },
     {
       "id": "p10",
       "from": "03房间",
       "to": "走廊2",
-      "lon": 0,
-      "lat": 0,
+      "lon": -33.6,
+      "lat": -3.5,
       "entryLon": -286.2,
       "entryLat": -4.8,
       "label": "返回"
@@ -170,8 +170,8 @@
       "id": "p11",
       "from": "走廊2",
       "to": "卫生间",
-      "lon": 70,
-      "lat": -8.1,
+      "lon": -324.4,
+      "lat": -1.5,
       "entryLon": 88.2,
       "entryLat": -11.7,
       "label": "卫生间"
@@ -190,9 +190,19 @@
       "id": "p13",
       "from": "走廊",
       "to": "01房间",
-      "lon": -49.5,
-      "lat": -4.1,
+      "lon": 242.1,
+      "lat": -5.7,
       "label": "卧室1"
+    },
+    {
+      "id": "p14",
+      "from": "走廊2",
+      "to": "02房间",
+      "lon": -209.7,
+      "lat": -7.1,
+      "label": "卧室2",
+      "entryLon": 168.6,
+      "entryLat": -10.2
     }
   ]
 }
