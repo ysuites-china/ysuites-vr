@@ -50,149 +50,23 @@
     }
   ],
   "portals": [
-    {
-      "id": "p1",
-      "from": "入口",
-      "to": "走廊",
-      "lon": 0,
-      "lat": 0,
-      "label": "走廊"
-    },
-    {
-      "id": "p2",
-      "from": "走廊",
-      "to": "入口",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回入口"
-    },
-    {
-      "id": "p3",
-      "from": "走廊",
-      "to": "走廊2",
-      "lon": 0,
-      "lat": 0,
-      "label": "走廊"
-    },
-    {
-      "id": "p4",
-      "from": "走廊2",
-      "to": "走廊",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回"
-    },
-    {
-      "id": "p5",
-      "from": "走廊2",
-      "to": "1号房",
-      "lon": 0,
-      "lat": 0,
-      "label": "卧室1"
-    },
-    {
-      "id": "p6",
-      "from": "1号房",
-      "to": "走廊2",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回"
-    },
-    {
-      "id": "p7",
-      "from": "走廊2",
-      "to": "2号房",
-      "lon": 0,
-      "lat": 0,
-      "label": "卧室2"
-    },
-    {
-      "id": "p8",
-      "from": "2号房",
-      "to": "走廊2",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回"
-    },
-    {
-      "id": "p9",
-      "from": "走廊",
-      "to": "厕所",
-      "lon": 0,
-      "lat": 0,
-      "label": "卫生间"
-    },
-    {
-      "id": "p10",
-      "from": "厕所",
-      "to": "走廊",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回"
-    },
-    {
-      "id": "p11",
-      "from": "入口",
-      "to": "1号房",
-      "lon": 0,
-      "lat": 0,
-      "label": "卧室1"
-    },
-    {
-      "id": "p12",
-      "from": "1号房",
-      "to": "入口",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回入口"
-    },
-    {
-      "id": "p13",
-      "from": "入口",
-      "to": "厕所",
-      "lon": 0,
-      "lat": 0,
-      "label": "卫生间"
-    },
-    {
-      "id": "p14",
-      "from": "厕所",
-      "to": "入口",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回入口"
-    },
-    {
-      "id": "p15",
-      "from": "走廊",
-      "to": "1号房",
-      "lon": 0,
-      "lat": 0,
-      "label": "卧室1"
-    },
-    {
-      "id": "p16",
-      "from": "1号房",
-      "to": "走廊",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回"
-    },
-    {
-      "id": "p17",
-      "from": "走廊",
-      "to": "2号房",
-      "lon": 0,
-      "lat": 0,
-      "label": "卧室2"
-    },
-    {
-      "id": "p18",
-      "from": "2号房",
-      "to": "走廊",
-      "lon": 0,
-      "lat": 0,
-      "label": "返回"
-    }
+    { "id": "p1", "from": "入口", "to": "走廊", "lon": 234.4, "lat": -15.5, "label": "走廊" },
+    { "id": "p2", "from": "走廊", "to": "入口", "lon": 44.7, "lat": -7.6, "entryLon": 223.9, "entryLat": 4.9, "label": "返回入口" },
+    { "id": "p3", "from": "走廊", "to": "走廊2", "lon": 0, "lat": 0, "label": "走廊" },
+    { "id": "p4", "from": "走廊2", "to": "走廊", "lon": 0, "lat": 0, "label": "返回" },
+    { "id": "p5", "from": "走廊2", "to": "1号房", "lon": 0, "lat": 0, "entryLon": -103.2, "entryLat": -2.7, "label": "卧室1" },
+    { "id": "p6", "from": "1号房", "to": "走廊2", "lon": 91.6, "lat": 3.8, "label": "返回" },
+    { "id": "p7", "from": "走廊2", "to": "2号房", "lon": 0, "lat": 0, "entryLon": -120.3, "entryLat": -10.9, "label": "卧室2" },
+    { "id": "p8", "from": "2号房", "to": "走廊2", "lon": -255, "lat": -12, "label": "返回" },
+    { "id": "p9", "from": "走廊", "to": "厕所", "lon": 0, "lat": 0, "entryLon": -128.8, "entryLat": -4.5, "label": "卫生间" },
+    { "id": "p10", "from": "厕所", "to": "走廊", "lon": -223.9, "lat": -6.6, "label": "返回" },
+    { "id": "p11", "from": "入口", "to": "1号房", "lon": 214.2, "lat": -9.6, "entryLon": -103.2, "entryLat": -2.7, "label": "卧室1" },
+    { "id": "p12", "from": "1号房", "to": "入口", "lon": 91.6, "lat": 3.8, "entryLon": 223.9, "entryLat": 4.9, "label": "返回入口" },
+    { "id": "p13", "from": "入口", "to": "厕所", "lon": 253, "lat": -4.2, "entryLon": -128.8, "entryLat": -4.5, "label": "卫生间" },
+    { "id": "p14", "from": "厕所", "to": "入口", "lon": -223.9, "lat": -6.6, "entryLon": 223.9, "entryLat": 4.9, "label": "返回入口" },
+    { "id": "p15", "from": "走廊", "to": "1号房", "lon": -150.3, "lat": -2.9, "entryLon": -103.2, "entryLat": -2.7, "label": "卧室1" },
+    { "id": "p16", "from": "1号房", "to": "走廊", "lon": 91.6, "lat": 3.8, "label": "返回" },
+    { "id": "p17", "from": "走廊", "to": "2号房", "lon": -52.8, "lat": -2, "entryLon": -120.3, "entryLat": -10.9, "label": "卧室2" },
+    { "id": "p18", "from": "2号房", "to": "走廊", "lon": -255, "lat": -12, "label": "返回" }
   ]
 }
