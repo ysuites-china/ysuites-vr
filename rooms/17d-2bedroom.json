@@ -13,13 +13,17 @@
     { "id": "02房间", "file": "img/17d-2bedroom/02房间.webp", "name": "卧室2 (D.02)" }
   ],
   "portals": [
-    { "id": "p1", "from": "入口", "to": "厕所", "lon": 0, "lat": 0, "label": "卫生间" },
-    { "id": "p2", "from": "厕所", "to": "入口", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p3", "from": "入口", "to": "其他房间", "lon": 180, "lat": 0, "label": "其他房间" },
-    { "id": "p4", "from": "其他房间", "to": "入口", "lon": 60, "lat": 0, "label": "返回入口" },
-    { "id": "p5", "from": "入口", "to": "01房间", "lon": 0, "lat": 0, "label": "卧室1" },
-    { "id": "p6", "from": "01房间", "to": "入口", "lon": 90, "lat": 0, "label": "返回入口" },
-    { "id": "p7", "from": "其他房间", "to": "02房间", "lon": -140, "lat": 0, "label": "卧室2" },
-    { "id": "p8", "from": "02房间", "to": "其他房间", "lon": 180, "lat": 0, "label": "返回" }
+    { "id": "p1", "from": "入口", "to": "厕所", "lon": 197.4, "lat": -0.9, "entryLon": 294.8, "entryLat": -7.7, "label": "卫生间" },
+    { "id": "p2", "from": "厕所", "to": "入口", "lon": 443, "lat": -0.6, "entryLon": 185.2, "entryLat": 2.9, "label": "返回" },
+    { "id": "p3", "from": "入口", "to": "其他房间", "lon": 176.3, "lat": -11.7, "entryLon": -67.4, "entryLat": -1.1, "label": "其他房间" },
+    { "id": "p4", "from": "其他房间", "to": "入口", "lon": -6.9, "lat": -1.3, "entryLon": 192.6, "entryLat": -0.3, "label": "返回入口" },
+    { "id": "p5", "from": "入口", "to": "01房间", "lon": 168.7, "lat": 0.6, "entryLon": -62.1, "entryLat": -6.6, "label": "卧室1" },
+    { "id": "p6", "from": "01房间", "to": "入口", "lon": 35.5, "lat": -5.8, "entryLon": 185.2, "entryLat": 2.9, "label": "返回入口" },
+    { "id": "p7", "from": "其他房间", "to": "02房间", "lon": -102.4, "lat": -2.2, "label": "卧室2" },
+    { "id": "p8", "from": "02房间", "to": "其他房间", "lon": 180, "lat": 0, "entryLon": -67.4, "entryLat": -1.1, "label": "返回" },
+    { "id": "p9", "from": "其他房间", "to": "厕所", "lon": 60, "lat": 0, "label": "卫生间" },
+    { "id": "p10", "from": "厕所", "to": "其他房间", "lon": 180, "lat": 0, "entryLon": -67.4, "entryLat": -1.1, "label": "返回" },
+    { "id": "p11", "from": "其他房间", "to": "01房间", "lon": 140, "lat": 0, "label": "卧室1" },
+    { "id": "p12", "from": "01房间", "to": "其他房间", "lon": 180, "lat": 0, "entryLon": -67.4, "entryLat": -1.1, "label": "返回" }
   ]
 }
