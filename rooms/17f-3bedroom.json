@@ -15,17 +15,17 @@
     { "id": "小单间", "file": "img/17f-3bedroom/小单间.webp", "name": "卧室1 (F.01 · 5.7㎡)" }
   ],
   "portals": [
-    { "id": "p11", "from": "入口", "to": "卫浴1", "lon": 40, "lat": 0, "label": "浴室" },
-    { "id": "p12", "from": "卫浴1", "to": "入口", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p13", "from": "入口", "to": "卫浴2", "lon": 90, "lat": 0, "label": "洗手间" },
-    { "id": "p14", "from": "卫浴2", "to": "入口", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p15", "from": "入口", "to": "房间区", "lon": -60, "lat": 0, "label": "房间区" },
-    { "id": "p16", "from": "房间区", "to": "入口", "lon": 180, "lat": 0, "label": "返回入口" },
-    { "id": "p5", "from": "房间区", "to": "大单间", "lon": -50, "lat": 0, "label": "卧室3" },
-    { "id": "p6", "from": "大单间", "to": "房间区", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p7", "from": "房间区", "to": "中单间", "lon": -110, "lat": 0, "label": "卧室2" },
-    { "id": "p8", "from": "中单间", "to": "房间区", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p9", "from": "房间区", "to": "小单间", "lon": -160, "lat": 0, "label": "卧室1" },
-    { "id": "p10", "from": "小单间", "to": "房间区", "lon": 180, "lat": 0, "label": "返回" }
+    { "id": "p11", "from": "入口", "to": "卫浴1", "lon": 45.7, "lat": -8.5, "entryLon": -167.4, "entryLat": -27.1, "label": "浴室" },
+    { "id": "p12", "from": "卫浴1", "to": "入口", "lon": 45.4, "lat": -2.4, "entryLon": 53.4, "entryLat": -1.3, "label": "返回" },
+    { "id": "p13", "from": "入口", "to": "卫浴2", "lon": -3.5, "lat": -11.2, "entryLon": 281.7, "entryLat": -20.1, "label": "洗手间" },
+    { "id": "p14", "from": "卫浴2", "to": "入口", "lon": 28.5, "lat": -8.5, "entryLon": 53.4, "entryLat": -1.3, "label": "返回" },
+    { "id": "p15", "from": "入口", "to": "房间区", "lon": 82.4, "lat": -10.1, "entryLon": -76.5, "entryLat": -2, "label": "房间区" },
+    { "id": "p16", "from": "房间区", "to": "入口", "lon": -231.9, "lat": -13.8, "entryLon": 53.4, "entryLat": -1.3, "label": "返回入口" },
+    { "id": "p5", "from": "房间区", "to": "大单间", "lon": -133.9, "lat": -7.3, "entryLon": 232, "entryLat": -2.1, "label": "卧室3" },
+    { "id": "p6", "from": "大单间", "to": "房间区", "lon": 57.7, "lat": -3.6, "entryLon": -76.5, "entryLat": -2, "label": "返回" },
+    { "id": "p7", "from": "房间区", "to": "中单间", "lon": -73, "lat": -0.9, "entryLon": -464.4, "entryLat": -3.5, "label": "卧室2" },
+    { "id": "p8", "from": "中单间", "to": "房间区", "lon": -307.3, "lat": -0.5, "entryLon": -76.5, "entryLat": -2, "label": "返回" },
+    { "id": "p9", "from": "房间区", "to": "小单间", "lon": -59.4, "lat": 0, "entryLon": -46.2, "entryLat": -12.3, "label": "卧室1" },
+    { "id": "p10", "from": "小单间", "to": "房间区", "lon": 103.8, "lat": -3.6, "entryLon": -76.5, "entryLat": -2, "label": "返回" }
   ]
 }
