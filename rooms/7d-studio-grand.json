@@ -14,9 +14,11 @@
   "portals": [
     { "id": "p1", "from": "入口", "to": "客厅", "lon": 0, "lat": 0, "label": "客厅" },
     { "id": "p2", "from": "客厅", "to": "入口", "lon": 180, "lat": 0, "label": "返回入口" },
-    { "id": "p3", "from": "客厅", "to": "厕所", "lon": 70, "lat": 0, "label": "卫生间" },
-    { "id": "p4", "from": "厕所", "to": "客厅", "lon": 180, "lat": 0, "label": "返回" },
+    { "id": "p3", "from": "入口", "to": "厕所", "lon": 0, "lat": 0, "label": "卫生间" },
+    { "id": "p4", "from": "厕所", "to": "入口", "lon": 180, "lat": 0, "label": "返回" },
     { "id": "p5", "from": "客厅", "to": "卧室", "lon": -80, "lat": 0, "label": "卧室" },
-    { "id": "p6", "from": "卧室", "to": "客厅", "lon": 180, "lat": 0, "label": "返回" }
+    { "id": "p6", "from": "卧室", "to": "客厅", "lon": 180, "lat": 0, "label": "返回" },
+    { "id": "p7", "from": "入口", "to": "卧室", "lon": 0, "lat": 0, "label": "卧室" },
+    { "id": "p8", "from": "卧室", "to": "入口", "lon": 90, "lat": 0, "label": "返回入口" }
   ]
 }

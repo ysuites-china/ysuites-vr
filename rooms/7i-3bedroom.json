@@ -7,8 +7,8 @@
   "startLat": 0,
   "scenes": [
     { "id": "入口", "file": "img/7i-3bedroom/餐厅厨房.webp", "name": "入口" },
-    { "id": "房间区", "file": "img/7i-3bedroom/走廊.webp", "name": "房间区" },
-    { "id": "更多房间", "file": "img/7i-3bedroom/走廊2.webp", "name": "更多房间" },
+    { "id": "走廊", "file": "img/7i-3bedroom/走廊.webp", "name": "走廊" },
+    { "id": "房间区", "file": "img/7i-3bedroom/走廊2.webp", "name": "房间区" },
     { "id": "洗手间", "file": "img/7i-3bedroom/厕所1.webp", "name": "洗手间" },
     { "id": "浴室", "file": "img/7i-3bedroom/厕所2.webp", "name": "浴室" },
     { "id": "01房间", "file": "img/7i-3bedroom/01房间.webp", "name": "卧室1 (I.01)" },
@@ -16,19 +16,19 @@
     { "id": "03房间", "file": "img/7i-3bedroom/03房间.webp", "name": "卧室3 (I.03)" }
   ],
   "portals": [
-    { "id": "p1", "from": "入口", "to": "房间区", "lon": 0, "lat": 0, "label": "房间区" },
-    { "id": "p2", "from": "房间区", "to": "入口", "lon": 180, "lat": 0, "label": "返回入口" },
+    { "id": "p1", "from": "入口", "to": "走廊", "lon": 0, "lat": 0, "label": "走廊" },
+    { "id": "p2", "from": "走廊", "to": "入口", "lon": 180, "lat": 0, "label": "返回入口" },
     { "id": "p3", "from": "入口", "to": "浴室", "lon": 0, "lat": 0, "label": "浴室" },
     { "id": "p4", "from": "浴室", "to": "入口", "lon": 180, "lat": 0, "label": "返回" },
     { "id": "p5", "from": "入口", "to": "洗手间", "lon": 0, "lat": 0, "label": "洗手间" },
     { "id": "p6", "from": "洗手间", "to": "入口", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p7", "from": "房间区", "to": "01房间", "lon": -60, "lat": 0, "label": "卧室1" },
-    { "id": "p8", "from": "01房间", "to": "房间区", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p9", "from": "房间区", "to": "更多房间", "lon": 0, "lat": 0, "label": "更多房间" },
-    { "id": "p10", "from": "更多房间", "to": "房间区", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p11", "from": "更多房间", "to": "02房间", "lon": -60, "lat": 0, "label": "卧室2" },
-    { "id": "p12", "from": "02房间", "to": "更多房间", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p13", "from": "更多房间", "to": "03房间", "lon": -140, "lat": 0, "label": "卧室3" },
-    { "id": "p14", "from": "03房间", "to": "更多房间", "lon": 180, "lat": 0, "label": "返回" }
+    { "id": "p7", "from": "走廊", "to": "01房间", "lon": -60, "lat": 0, "label": "卧室1" },
+    { "id": "p8", "from": "01房间", "to": "走廊", "lon": 180, "lat": 0, "label": "返回" },
+    { "id": "p9", "from": "走廊", "to": "房间区", "lon": 0, "lat": 0, "label": "房间区" },
+    { "id": "p10", "from": "房间区", "to": "走廊", "lon": 180, "lat": 0, "label": "返回" },
+    { "id": "p11", "from": "房间区", "to": "02房间", "lon": -60, "lat": 0, "label": "卧室2" },
+    { "id": "p12", "from": "02房间", "to": "房间区", "lon": 180, "lat": 0, "label": "返回" },
+    { "id": "p13", "from": "房间区", "to": "03房间", "lon": -140, "lat": 0, "label": "卧室3" },
+    { "id": "p14", "from": "03房间", "to": "房间区", "lon": 180, "lat": 0, "label": "返回" }
   ]
 }

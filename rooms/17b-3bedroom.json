@@ -7,7 +7,7 @@
   "startLat": 0,
   "scenes": [
     { "id": "入口", "file": "img/17b-3bedroom/厨房.webp", "name": "入口" },
-    { "id": "走廊", "file": "img/17b-3bedroom/走廊.webp", "name": "走廊" },
+    { "id": "切换视角", "file": "img/17b-3bedroom/走廊.webp", "name": "切换视角" },
     { "id": "厕所", "file": "img/17b-3bedroom/厕所.webp", "name": "卫生间" },
     { "id": "01房间", "file": "img/17b-3bedroom/01房间.webp", "name": "卧室1 (B.01)" },
     { "id": "02房间", "file": "img/17b-3bedroom/02房间.webp", "name": "卧室2 (B.02)" },
@@ -18,11 +18,15 @@
     { "id": "p2", "from": "01房间", "to": "入口", "lon": 330.9, "lat": 1.1, "label": "返回" },
     { "id": "p3", "from": "入口", "to": "厕所", "lon": 0, "lat": 0, "label": "卫生间" },
     { "id": "p4", "from": "厕所", "to": "入口", "lon": 112.8, "lat": -0.6, "label": "返回" },
-    { "id": "p5", "from": "入口", "to": "走廊", "lon": 180, "lat": 0, "label": "走廊" },
-    { "id": "p6", "from": "走廊", "to": "入口", "lon": -1119.2, "lat": -10, "label": "返回入口" },
-    { "id": "p7", "from": "走廊", "to": "02房间", "lon": -990, "lat": 0.6, "entryLon": 330.5, "entryLat": -5.2, "label": "卧室2" },
-    { "id": "p8", "from": "02房间", "to": "走廊", "lon": 347.1, "lat": 0.2, "entryLon": -1068, "entryLat": -1.6, "label": "返回" },
-    { "id": "p9", "from": "走廊", "to": "03房间", "lon": -890.9, "lat": 2.2, "entryLon": -51, "entryLat": 4.1, "label": "卧室3" },
-    { "id": "p10", "from": "03房间", "to": "走廊", "lon": 88.8, "lat": -3.6, "entryLon": -1068, "entryLat": -1.6, "label": "返回" }
+    { "id": "p5", "from": "入口", "to": "切换视角", "lon": 180, "lat": 0, "label": "切换视角" },
+    { "id": "p6", "from": "切换视角", "to": "入口", "lon": -1119.2, "lat": -10, "label": "返回入口" },
+    { "id": "p7", "from": "切换视角", "to": "02房间", "lon": -990, "lat": 0.6, "entryLon": 330.5, "entryLat": -5.2, "label": "卧室2" },
+    { "id": "p8", "from": "02房间", "to": "切换视角", "lon": 347.1, "lat": 0.2, "entryLon": -1068, "entryLat": -1.6, "label": "返回" },
+    { "id": "p9", "from": "切换视角", "to": "03房间", "lon": -890.9, "lat": 2.2, "entryLon": -51, "entryLat": 4.1, "label": "卧室3" },
+    { "id": "p10", "from": "03房间", "to": "切换视角", "lon": 88.8, "lat": -3.6, "entryLon": -1068, "entryLat": -1.6, "label": "返回" },
+    { "id": "p11", "from": "入口", "to": "02房间", "lon": 0, "lat": 0, "label": "卧室2" },
+    { "id": "p12", "from": "02房间", "to": "入口", "lon": 90, "lat": 0, "label": "返回入口" },
+    { "id": "p13", "from": "入口", "to": "03房间", "lon": 0, "lat": 0, "label": "卧室3" },
+    { "id": "p14", "from": "03房间", "to": "入口", "lon": 90, "lat": 0, "label": "返回入口" }
   ]
 }

@@ -160,7 +160,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   <button class="btn" id="bL">&#8249;</button><button class="btn" id="bR">&#8250;</button>
   <button class="btn" id="bU">&#8593;</button><button class="btn" id="bD">&#8595;</button>
   <div class="sep"></div>
-  <button class="btn" id="bZI">+</button><span id="fovlbl">75°</span><button class="btn" id="bZO">&#8722;</button>
+  <button class="btn" id="bZI">+</button><span id="fovlbl">79°</span><button class="btn" id="bZO">&#8722;</button>
   <div class="sep"></div>
   <button class="btn" id="bFS">&#x26F6;</button>
 </div>
@@ -242,12 +242,12 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth,window.innerHeight);
     var scene3=new THREE.Scene();
-    var camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+    var camera=new THREE.PerspectiveCamera(78.75,window.innerWidth/window.innerHeight,0.1,1000);
     var geo=new THREE.SphereGeometry(500,60,40); geo.scale(-1,1,1);
     var mat=new THREE.MeshBasicMaterial();
     var mesh=new THREE.Mesh(geo,mat); scene3.add(mesh);
 
-    var lon=cfg.startLon||0,lat=cfg.startLat||0,fov=100,isDrag=false,lastX=0,lastY=0,autoSpin=true,addMode=false,calibMode=false;
+    var lon=cfg.startLon||0,lat=cfg.startLat||0,fov=78.75,isDrag=false,lastX=0,lastY=0,autoSpin=true,addMode=false,calibMode=false;
     var currentScene=firstScene, texCache={};
     var sceneHS={}; cfg.scenes.forEach(function(s){sceneHS[s.id]=[];});
     var hsCounter=0,activeCard=null,pendingHS=null,editingId=null;
