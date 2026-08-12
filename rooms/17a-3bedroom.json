@@ -42,8 +42,8 @@
       "id": "p1",
       "from": "入口",
       "to": "走廊",
-      "lon": 185.6,
-      "lat": -13.2,
+      "lon": 257.9,
+      "lat": -21,
       "entryLon": 244.6,
       "entryLat": -5.5,
       "label": "走廊"
@@ -98,32 +98,40 @@
       "id": "p9",
       "from": "入口",
       "to": "02房间",
-      "lon": 90,
-      "lat": 0,
+      "lon": 100.4,
+      "lat": -8.1,
+      "entryLon": -175.9,
+      "entryLat": -8.7,
       "label": "卧室2"
     },
     {
       "id": "p10",
       "from": "02房间",
       "to": "入口",
-      "lon": 180,
-      "lat": 0,
+      "lon": 1.3,
+      "lat": -1.5,
+      "entryLon": 29.7,
+      "entryLat": 1.3,
       "label": "返回"
     },
     {
       "id": "p11",
       "from": "入口",
       "to": "03房间",
-      "lon": 60,
-      "lat": 0,
+      "lon": 140.2,
+      "lat": -8.2,
+      "entryLon": 201.5,
+      "entryLat": 2.7,
       "label": "卧室3"
     },
     {
       "id": "p12",
       "from": "03房间",
       "to": "入口",
-      "lon": 180,
-      "lat": 0,
+      "lon": 389.3,
+      "lat": -6.3,
+      "entryLon": 29.7,
+      "entryLat": 1.3,
       "label": "返回"
     }
   ]
