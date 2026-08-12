@@ -1,25 +1,36 @@
 {
-  "title": "Y Suites · 1 Bedroom",
+  "title": "Y Suites · 2 Bedroom",
   "brand": "Y SUITES",
-  "unit": "1 Bedroom · 9/F Unit C",
+  "unit": "2 Bedroom · 9/F Unit C",
   "defaultScene": "入口",
   "startLon": 0,
   "startLat": 0,
   "scenes": [
     {
       "id": "入口",
-      "file": "img/9f-1bedroom-c/入口.webp",
+      "file": "img/9f-2bedroom-c/入口.webp",
       "name": "入口"
     },
     {
       "id": "走廊",
-      "file": "img/9f-1bedroom-c/走廊.webp",
+      "file": "img/9f-2bedroom-c/走廊.webp",
       "name": "走廊"
     },
     {
+      "id": "1号房",
+      "file": "img/9f-2bedroom-c/1号房.webp",
+      "name": "卧室1",
+      "highlights": [
+        "Queen size 床",
+        "内嵌衣柜",
+        "独立空调",
+        "城市景观"
+      ]
+    },
+    {
       "id": "2号房",
-      "file": "img/9f-1bedroom-c/2号房.webp",
-      "name": "卧室",
+      "file": "img/9f-2bedroom-c/2号房.webp",
+      "name": "卧室2",
       "highlights": [
         "Queen size 床",
         "内嵌衣柜",
@@ -29,7 +40,7 @@
     },
     {
       "id": "厕所",
-      "file": "img/9f-1bedroom-c/厕所.webp",
+      "file": "img/9f-2bedroom-c/厕所.webp",
       "name": "卫生间"
     }
   ],
@@ -53,14 +64,14 @@
     {
       "id": "p3",
       "from": "走廊",
-      "to": "2号房",
+      "to": "1号房",
       "lon": 0,
       "lat": 0,
-      "label": "卧室"
+      "label": "卧室1"
     },
     {
       "id": "p4",
-      "from": "2号房",
+      "from": "1号房",
       "to": "走廊",
       "lon": 0,
       "lat": 0,
@@ -69,13 +80,29 @@
     {
       "id": "p5",
       "from": "走廊",
+      "to": "2号房",
+      "lon": 0,
+      "lat": 0,
+      "label": "卧室2"
+    },
+    {
+      "id": "p6",
+      "from": "2号房",
+      "to": "走廊",
+      "lon": 0,
+      "lat": 0,
+      "label": "返回"
+    },
+    {
+      "id": "p7",
+      "from": "走廊",
       "to": "厕所",
       "lon": 0,
       "lat": 0,
       "label": "卫生间"
     },
     {
-      "id": "p6",
+      "id": "p8",
       "from": "厕所",
       "to": "走廊",
       "lon": 0,
