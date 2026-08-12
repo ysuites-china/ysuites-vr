@@ -120,6 +120,20 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
 #hl-reopen.show { display:block; }
 #hl-reopen:hover { background:#00BAB3; }
 #coord-badge { display:none; position:fixed; top:60px; right:14px; background:rgba(0,0,0,0.7); border:1px solid rgba(0,186,179,0.3); color:#00BAB3; font-size:10px; font-family:monospace; padding:4px 10px; border-radius:8px; z-index:300; pointer-events:none; }
+#quicknav {
+  position:fixed; right:14px; top:50%; transform:translateY(-50%);
+  display:flex; flex-direction:column; gap:8px; z-index:150;
+}
+.qn-btn {
+  display:flex; align-items:center; gap:7px;
+  background:rgba(10,10,10,0.55); backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.15); border-radius:20px;
+  padding:8px 14px 8px 12px; color:rgba(255,255,255,0.85); font-size:12px;
+  cursor:pointer; transition:all 0.2s; white-space:nowrap; font-family:inherit;
+}
+.qn-btn:hover { background:rgba(0,186,179,0.25); border-color:rgba(0,186,179,0.6); color:#fff; }
+.qn-btn.active { background:#00BAB3; border-color:#00BAB3; color:#000; font-weight:700; }
+.qn-icon { font-size:13px; line-height:1; }
 #coord-badge.show { display:block; }
 #modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; z-index:500; }
 #modal-bg.show { display:flex; }
@@ -185,6 +199,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   <ul id="hl-list"></ul>
 </div>
 <button id="hl-reopen">✦ 查看亮点</button>
+<div id="quicknav"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
@@ -231,6 +246,38 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     var PORTALS = cfg.portals.map(function(p){ return Object.assign({},p); });
     var firstScene = cfg.defaultScene || cfg.scenes[0].id;
 
+    // ── 快速跳转（右侧悬浮）：只列出入口 / 卧室 / 洗手间，走廊、更多房间等中转场景不列入 ──
+    var QUICKNAV = cfg.scenes.filter(function(s){
+      var n = s.name || '';
+      if(/^入口/.test(n)) return true;
+      if(/走廊|更多房间|其他房间|及/.test(n)) return false;
+      if(/卧室/.test(n)) return true;
+      if(/卫生间|厕所|洗手间|卫浴/.test(n)) return true;
+      return false;
+    }).map(function(s){
+      var icon='📍';
+      if(/^入口/.test(s.name)) icon='🚪';
+      else if(/卧室/.test(s.name)) icon='🛏';
+      else icon='🚿';
+      return {id:s.id, name:s.name, icon:icon};
+    });
+    function jumpTo(id){
+      if(id===currentScene) return;
+      var viaPortal = PORTALS.find(function(p){ return p.to===id; });
+      switchScene(id, viaPortal?viaPortal.entryLon:undefined, viaPortal?viaPortal.entryLat:undefined);
+    }
+    function renderQuickNav(){
+      var el=document.getElementById('quicknav');
+      if(!QUICKNAV.length){ el.innerHTML=''; return; }
+      el.innerHTML=QUICKNAV.map(function(q){
+        return '<button class="qn-btn'+(q.id===currentScene?' active':'')+'" data-qn="'+q.id+'">'
+          +'<span class="qn-icon">'+q.icon+'</span><span>'+q.name+'</span></button>';
+      }).join('');
+      Array.prototype.forEach.call(el.querySelectorAll('.qn-btn'),function(btn){
+        btn.addEventListener('click',function(){ if(!calibMode) jumpTo(btn.getAttribute('data-qn')); });
+      });
+    }
+
     // 从 localStorage 恢复校准坐标
     try{
       var savedStart=localStorage.getItem('ysuites-start-'+roomId);
@@ -272,7 +319,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
         document.getElementById('loading').style.opacity='0';
         setTimeout(function(){document.getElementById('loading').style.display='none';},500);
       },200);
-      renderPortals(); renderHotspots();
+      renderPortals(); renderHotspots(); renderQuickNav();
       // 后台预加载其余场景
       var others=cfg.scenes.filter(function(s){return s.id!==firstScene;});
       var loaded=0;
@@ -310,7 +357,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
         Object.values(portalEls).forEach(function(e){if(e.parentNode)e.parentNode.removeChild(e);}); portalEls={};
         Object.keys(sceneHS).forEach(function(s){sceneHS[s].forEach(function(h){if(h.el&&h.el.parentNode)h.el.parentNode.removeChild(h.el);});});
         activeCard=null;
-        renderPortals(); renderHotspots();
+        renderPortals(); renderHotspots(); renderQuickNav();
         if(calibMode) buildCalibRows();
         tr.style.opacity='0'; setTimeout(function(){tr.style.pointerEvents='none';},350);
       },360);
