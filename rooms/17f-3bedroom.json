@@ -2,11 +2,10 @@
   "title": "Y Suites · 3 Bedroom",
   "brand": "Y SUITES",
   "unit": "3 Bedroom · 17/F Unit I",
-  "defaultScene": "入口",
+  "defaultScene": "走廊",
   "startLon": 0,
   "startLat": 0,
   "scenes": [
-    { "id": "入口", "file": "img/17f-3bedroom/入口.webp", "name": "入口" },
     { "id": "走廊", "file": "img/17f-3bedroom/走廊.webp", "name": "走廊" },
     { "id": "卫浴1", "file": "img/17f-3bedroom/卫浴1.webp", "name": "卫生间1" },
     { "id": "卫浴2", "file": "img/17f-3bedroom/卫浴2.webp", "name": "卫生间2" },
@@ -15,12 +14,6 @@
     { "id": "小单间", "file": "img/17f-3bedroom/小单间.webp", "name": "卧室 (F.01 · 5.7㎡)" }
   ],
   "portals": [
-    { "id": "p11", "from": "入口", "to": "卫浴1", "lon": 40, "lat": 0, "label": "卫生间" },
-    { "id": "p12", "from": "卫浴1", "to": "入口", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p13", "from": "入口", "to": "卫浴2", "lon": 90, "lat": 0, "label": "浴室" },
-    { "id": "p14", "from": "卫浴2", "to": "入口", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p15", "from": "入口", "to": "走廊", "lon": -60, "lat": 0, "label": "房间区域" },
-    { "id": "p16", "from": "走廊", "to": "入口", "lon": 180, "lat": 0, "label": "返回入口" },
     { "id": "p1", "from": "走廊", "to": "卫浴1", "lon": 50, "lat": 0, "label": "卫生间1" },
     { "id": "p2", "from": "卫浴1", "to": "走廊", "lon": 180, "lat": 0, "label": "返回" },
     { "id": "p3", "from": "走廊", "to": "卫浴2", "lon": 90, "lat": 0, "label": "卫生间2" },
