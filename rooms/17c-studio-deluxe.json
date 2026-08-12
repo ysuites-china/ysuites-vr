@@ -1,0 +1,19 @@
+{
+  "title": "Y Suites · Studio Deluxe",
+  "brand": "Y SUITES",
+  "unit": "Studio Deluxe · 17/F Unit C",
+  "defaultScene": "客厅",
+  "startLon": 0,
+  "startLat": 0,
+  "scenes": [
+    { "id": "客厅", "file": "img/17c-studio-deluxe/客厅.webp", "name": "客厅 (25.5㎡)" },
+    { "id": "卧室", "file": "img/17c-studio-deluxe/卧室.webp", "name": "卧室区" },
+    { "id": "厕所", "file": "img/17c-studio-deluxe/厕所.webp", "name": "卫生间" }
+  ],
+  "portals": [
+    { "id": "p1", "from": "客厅", "to": "卧室", "lon": 60, "lat": 0, "label": "卧室区" },
+    { "id": "p2", "from": "卧室", "to": "客厅", "lon": 180, "lat": 0, "label": "返回客厅" },
+    { "id": "p3", "from": "客厅", "to": "厕所", "lon": -60, "lat": 0, "label": "卫生间" },
+    { "id": "p4", "from": "厕所", "to": "客厅", "lon": 180, "lat": 0, "label": "返回客厅" }
+  ]
+}

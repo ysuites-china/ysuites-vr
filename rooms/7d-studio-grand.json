@@ -1,0 +1,22 @@
+{
+  "title": "Y Suites · Studio Grand",
+  "brand": "Y SUITES",
+  "unit": "Studio Grand · 3-8/F Unit D",
+  "defaultScene": "入口",
+  "startLon": 0,
+  "startLat": 0,
+  "scenes": [
+    { "id": "入口", "file": "img/7d-studio-grand/入口.webp", "name": "入口" },
+    { "id": "客厅", "file": "img/7d-studio-grand/客厅.webp", "name": "客厅" },
+    { "id": "厕所", "file": "img/7d-studio-grand/厕所.webp", "name": "卫生间" },
+    { "id": "卧室", "file": "img/7d-studio-grand/卧室.webp", "name": "卧室 (D.01 · 22.7㎡)" }
+  ],
+  "portals": [
+    { "id": "p1", "from": "入口", "to": "客厅", "lon": 0, "lat": 0, "label": "客厅" },
+    { "id": "p2", "from": "客厅", "to": "入口", "lon": 180, "lat": 0, "label": "返回入口" },
+    { "id": "p3", "from": "客厅", "to": "厕所", "lon": 70, "lat": 0, "label": "卫生间" },
+    { "id": "p4", "from": "厕所", "to": "客厅", "lon": 180, "lat": 0, "label": "返回" },
+    { "id": "p5", "from": "客厅", "to": "卧室", "lon": -80, "lat": 0, "label": "卧室" },
+    { "id": "p6", "from": "卧室", "to": "客厅", "lon": 180, "lat": 0, "label": "返回" }
+  ]
+}
