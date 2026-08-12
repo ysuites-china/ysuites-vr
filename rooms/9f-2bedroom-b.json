@@ -1,0 +1,134 @@
+{
+  "title": "Y Suites · 2 Bedroom",
+  "brand": "Y SUITES",
+  "unit": "2 Bedroom · 9/F Unit B",
+  "defaultScene": "入口",
+  "startLon": 0,
+  "startLat": 0,
+  "scenes": [
+    {
+      "id": "入口",
+      "file": "img/9f-2bedroom-b/入口.webp",
+      "name": "入口"
+    },
+    {
+      "id": "走廊",
+      "file": "img/9f-2bedroom-b/走廊.webp",
+      "name": "走廊"
+    },
+    {
+      "id": "餐厅",
+      "file": "img/9f-2bedroom-b/餐厅.webp",
+      "name": "餐厅"
+    },
+    {
+      "id": "1号房",
+      "file": "img/9f-2bedroom-b/1号房.webp",
+      "name": "卧室1",
+      "highlights": [
+        "Queen size 床",
+        "内嵌衣柜",
+        "独立空调",
+        "城市景观"
+      ]
+    },
+    {
+      "id": "2号房",
+      "file": "img/9f-2bedroom-b/2号房.webp",
+      "name": "卧室2",
+      "highlights": [
+        "Queen size 床",
+        "内嵌衣柜",
+        "独立空调",
+        "城市景观"
+      ]
+    },
+    {
+      "id": "厕所",
+      "file": "img/9f-2bedroom-b/厕所.webp",
+      "name": "卫生间"
+    }
+  ],
+  "portals": [
+    {
+      "id": "p1",
+      "from": "入口",
+      "to": "走廊",
+      "lon": 0,
+      "lat": 0,
+      "label": "走廊"
+    },
+    {
+      "id": "p2",
+      "from": "走廊",
+      "to": "入口",
+      "lon": 0,
+      "lat": 0,
+      "label": "返回入口"
+    },
+    {
+      "id": "p3",
+      "from": "走廊",
+      "to": "餐厅",
+      "lon": 0,
+      "lat": 0,
+      "label": "餐厅"
+    },
+    {
+      "id": "p4",
+      "from": "餐厅",
+      "to": "走廊",
+      "lon": 0,
+      "lat": 0,
+      "label": "返回"
+    },
+    {
+      "id": "p5",
+      "from": "走廊",
+      "to": "1号房",
+      "lon": 0,
+      "lat": 0,
+      "label": "卧室1"
+    },
+    {
+      "id": "p6",
+      "from": "1号房",
+      "to": "走廊",
+      "lon": 0,
+      "lat": 0,
+      "label": "返回"
+    },
+    {
+      "id": "p7",
+      "from": "走廊",
+      "to": "2号房",
+      "lon": 0,
+      "lat": 0,
+      "label": "卧室2"
+    },
+    {
+      "id": "p8",
+      "from": "2号房",
+      "to": "走廊",
+      "lon": 0,
+      "lat": 0,
+      "label": "返回"
+    },
+    {
+      "id": "p9",
+      "from": "走廊",
+      "to": "厕所",
+      "lon": 0,
+      "lat": 0,
+      "label": "卫生间"
+    },
+    {
+      "id": "p10",
+      "from": "厕所",
+      "to": "走廊",
+      "lon": 0,
+      "lat": 0,
+      "label": "返回"
+    }
+  ]
+}
