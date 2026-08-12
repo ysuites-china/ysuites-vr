@@ -192,6 +192,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
   var roomId  = params.get('room') || '';
   var isEmbed = params.get('embed') === '1';
   var isCalib = params.get('calib') === '1';
+  var CACHE_BUST = Date.now();
 
   document.getElementById('add-btn').style.display='none';
   if(isEmbed){
@@ -209,7 +210,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
     return;
   }
 
-  fetch('rooms/'+roomId+'.json')
+  fetch('rooms/'+roomId+'.json?v='+CACHE_BUST)
     .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
     .then(function(cfg){ initVR(cfg); })
     .catch(function(){
@@ -259,7 +260,7 @@ body { background:#000; overflow:hidden; font-family:-apple-system,'PingFang SC'
       img.crossOrigin='anonymous';
       img.onload=function(){ var tex=new THREE.Texture(img); tex.wrapS=THREE.RepeatWrapping; tex.needsUpdate=true; texCache[id]=tex; onDone(tex); };
       img.onerror=function(){ document.getElementById('load-msg').textContent='加载失败，请刷新重试'; };
-      img.src=SCENES[id].file;
+      img.src=SCENES[id].file+'?v='+CACHE_BUST;
     }
 
     // 加载第一个场景，然后后台预加载其余
