@@ -12,13 +12,13 @@
     { "id": "卧室", "file": "img/7d-studio-grand/卧室.webp", "name": "卧室 (D.01 · 22.7㎡)" }
   ],
   "portals": [
-    { "id": "p1", "from": "入口", "to": "客厅", "lon": 0, "lat": 0, "label": "客厅" },
-    { "id": "p2", "from": "客厅", "to": "入口", "lon": 180, "lat": 0, "label": "返回入口" },
-    { "id": "p3", "from": "入口", "to": "厕所", "lon": 0, "lat": 0, "label": "卫生间" },
-    { "id": "p4", "from": "厕所", "to": "入口", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p5", "from": "客厅", "to": "卧室", "lon": -80, "lat": 0, "label": "卧室" },
-    { "id": "p6", "from": "卧室", "to": "客厅", "lon": 180, "lat": 0, "label": "返回" },
-    { "id": "p7", "from": "入口", "to": "卧室", "lon": 0, "lat": 0, "label": "卧室" },
-    { "id": "p8", "from": "卧室", "to": "入口", "lon": 90, "lat": 0, "label": "返回入口" }
+    { "id": "p1", "from": "入口", "to": "客厅", "lon": 153.5, "lat": -14.6, "entryLon": 129.6, "entryLat": -5.8, "label": "客厅" },
+    { "id": "p2", "from": "客厅", "to": "入口", "lon": 9.4, "lat": -11.7, "entryLon": 171.4, "entryLat": 0, "label": "返回入口" },
+    { "id": "p3", "from": "入口", "to": "厕所", "lon": 22.7, "lat": -3.7, "entryLon": 113.4, "entryLat": -15.7, "label": "卫生间" },
+    { "id": "p4", "from": "厕所", "to": "入口", "lon": 294.1, "lat": -9.3, "label": "返回" },
+    { "id": "p5", "from": "客厅", "to": "卧室", "lon": 176.7, "lat": -4.5, "entryLon": 151.1, "entryLat": -0.8, "label": "卧室" },
+    { "id": "p6", "from": "卧室", "to": "客厅", "lon": 20.9, "lat": -7.8, "label": "返回" },
+    { "id": "p7", "from": "入口", "to": "卧室", "lon": 179, "lat": -4, "entryLon": 151.1, "entryLat": -0.8, "label": "卧室" },
+    { "id": "p8", "from": "卧室", "to": "入口", "lon": 1.2, "lat": -9.1, "label": "返回入口" }
   ]
 }
